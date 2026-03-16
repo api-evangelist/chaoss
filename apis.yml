@@ -1,0 +1,42 @@
+aid: chaoss
+name: CHAOSS
+description: >-
+  CHAOSS (Community Health Analytics in Open Source Software) is a Linux Foundation project that develops metrics, methodologies, and software for expressing open source community health and sustainability. It provides tools like GrimoireLab and Augur for analyzing open source project health.
+type: Index
+position: Consumer
+access: 3rd-Party
+image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Metrics
+  - Community Health
+  - Open Source
+  - Linux Foundation
+created: '2026-03-16'
+modified: '2026-03-16'
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/chaoss/refs/heads/main/apis.yml
+specificationVersion: '0.19'
+apis:
+  - aid: chaoss:chaoss-api
+    name: CHAOSS API
+    description: >-
+      API for accessing CHAOSS community health metrics, methodologies, and analytics tools for measuring open source project health and sustainability.
+    humanURL: https://chaoss.community/metrics/
+    tags:
+      - Metrics
+      - Community Health
+    properties:
+      - type: Documentation
+        url: https://chaoss.community/metrics/
+common:
+  - type: Documentation
+    name: CHAOSS Documentation
+    description: Official documentation for CHAOSS.
+    url: https://chaoss.community/metrics/
+  - type: GitHubOrg
+    name: CHAOSS GitHub
+    description: Source code and repositories for CHAOSS.
+    url: https://github.com/chaoss
+maintainers:
+  - FN: Kin Lane
+    email: info@apievangelist.com
