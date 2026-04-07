@@ -7,10 +7,10 @@ position: Consumer
 access: 3rd-Party
 image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Metrics
   - Community Health
-  - Open Source
   - Linux Foundation
+  - Metrics
+  - Open Source
 created: '2026-03-16'
 modified: '2026-03-16'
 url: >-
@@ -23,8 +23,8 @@ apis:
       API for accessing CHAOSS community health metrics, methodologies, and analytics tools for measuring open source project health and sustainability.
     humanURL: https://chaoss.community/metrics/
     tags:
-      - Metrics
       - Community Health
+      - Metrics
     properties:
       - type: Documentation
         url: https://chaoss.community/metrics/
