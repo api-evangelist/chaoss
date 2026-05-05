@@ -1,0 +1,13 @@
+{
+  "repo": "chaoss",
+  "feeds": [
+    {
+      "source": "https://chaoss.community/news-blog/",
+      "feed_url": "https://chaoss.community/feed/",
+      "saved": 10,
+      "title": "CHAOSS"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:25:16Z"
+}
