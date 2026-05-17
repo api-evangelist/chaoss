@@ -1,6 +1,6 @@
 aid: chaoss
 name: CHAOSS
-x-type: opensource
+kind: opensource
 description: >-
   CHAOSS (Community Health Analytics in Open Source Software) is a Linux
   Foundation project that develops metrics, methodologies, software, and
