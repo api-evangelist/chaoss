@@ -127,6 +127,10 @@ apis:
       - type: GitHubRepository
         url: https://github.com/oss-aspen/8knot
 common:
+  - type: IssueTracker
+    url: https://github.com/chaoss/augur/issues
+  - type: CodeOfConduct
+    url: https://github.com/chaoss/.github/blob/main/CODE_OF_CONDUCT.md
   - type: DomainSecurity
     url: security/chaoss-domain-security.yml
   - type: Website
