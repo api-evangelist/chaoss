@@ -3,109 +3,66 @@ specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
 provider: CHAOSS
 providerId: chaoss
+api: CollectOSS REST API
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
-tags:
-  - Analytics
-  - Community Health
-  - DEI
-  - Linux Foundation
-  - Metrics
-  - Observability
-  - Open Source
-  - Risk
-  - Sustainability
-  - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the CHAOSS API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
+generated: '2026-09-05'
+modified: '2026-09-05'
+method: searched
+source: >-
+  Full-text read of the CollectOSS documentation tree at https://docs.collectoss.org/en/latest/
+  (index, login, rest-api, schema, getting-started, docker, deployment, development-guide) and a
+  parameter/header/response census of openapi/chaoss-collectoss-openapi.yml — 2026-09-05.
+description: >-
+  CHAOSS publishes NO rate limits for the CollectOSS REST API, and the contract declares no
+  rate-limit response headers and no 429. This is a recorded measurement. It follows from the
+  deployment model: CollectOSS is self-hosted, so whatever throttling exists is imposed by the
+  operator's own reverse proxy or Gunicorn worker pool, not by CHAOSS.
+limit_count: 0
+limits: []
 headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  limit: null
+  remaining: null
+  reset: null
+  retryAfter: null
+  policy: null
+headers_note: >-
+  No RateLimit-*, X-RateLimit-* or Retry-After header appears anywhere in the 137-operation contract
+  or in the documentation. An agent has no runtime signal at all — it cannot know how close it is to
+  a limit, and it cannot know how long to wait after being refused.
 responseCodes:
-  throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
-limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - CHAOSS Augur REST API
-      - CHAOSS Metrics Catalog
-      - CHAOSS GrimoireLab
-      - CHAOSS 8Knot Dashboard
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - CHAOSS Augur REST API
-      - CHAOSS Metrics Catalog
-      - CHAOSS GrimoireLab
-      - CHAOSS 8Knot Dashboard
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - CHAOSS Augur REST API
-      - CHAOSS Metrics Catalog
-      - CHAOSS GrimoireLab
-      - CHAOSS 8Knot Dashboard
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - CHAOSS Augur REST API
-      - CHAOSS Metrics Catalog
-      - CHAOSS GrimoireLab
-      - CHAOSS 8Knot Dashboard
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - CHAOSS Augur REST API
-      - CHAOSS Metrics Catalog
-      - CHAOSS GrimoireLab
-      - CHAOSS 8Knot Dashboard
-policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  throttled: null
+  note: >-
+    No 429 response is declared on any operation. The only declared non-200 status in the entire
+    contract is a 400 on two of the four POST operations.
+real_constraints:
+  - name: Unbounded collection responses
+    detail: >-
+      There is no pagination on any operation. GET /repos returns every tracked repository in one
+      array, and the CHAOSS software page names scaling "to tens of thousands of repositories" as a
+      CollectOSS design goal. The practical limit an integrator hits first is response size, not a
+      request quota. Cap it client-side.
+  - name: Upstream forge quota
+    detail: >-
+      The binding rate limit in a CollectOSS deployment is GitHub's and GitLab's, consumed during
+      collection rather than at API read time. The CLI takes --github_api_key
+      (COLLECTOSS_GITHUB_API_KEY) and the CHAOSS software page cites "support for rotating API keys"
+      as a feature — an explicit acknowledgement that forge quota is the scaling constraint.
+  - name: Gunicorn worker pool
+    detail: >-
+      The API is served by Flask behind Gunicorn, configured from collectoss/api/gunicorn_conf.py and
+      overridable from the instance's config table. Concurrency is therefore an operator setting; no
+      default is published.
+guidance_for_agents: >-
+  Because no limit is published and no header is returned, an agent must self-throttle
+  conservatively, use exponential backoff with jitter on any non-200, and treat a slow or truncated
+  response as backpressure. Do not infer a limit from a successful burst — you are measuring one
+  operator's hardware, not a CHAOSS policy.
+supersedes: >-
+  REPLACES a fabricated scaffold. The prior version of this file (generated 2026-05-04 by a bulk
+  sweep, see roadmap#35) asserted five tiered limits — 10, 100 and 1,000 requests/minute with burst
+  ceilings and monthly quotas — plus a full X-RateLimit-*/Retry-After header set and 429/503 response
+  codes. CHAOSS publishes none of it and the contract declares none of it. limit_count: 0 is the
+  true value.
 maintainers:
   - FN: Kin Lane
     email: info@apievangelist.com

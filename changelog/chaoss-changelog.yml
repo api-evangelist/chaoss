@@ -1,0 +1,68 @@
+specification: API Commons ChangeLog
+specificationVersion: '0.1'
+provider: CHAOSS
+providerId: chaoss
+generated: '2026-09-05'
+modified: '2026-09-05'
+method: searched
+source: >-
+  GitHub Releases for chaoss/CollectOSS and chaoss/grimoirelab, read via the GitHub REST API on
+  2026-09-05. CHAOSS publishes no separate dated API changelog page.
+docs: https://github.com/chaoss/CollectOSS/releases
+description: >-
+  CHAOSS ships release notes as GitHub Releases per repository. There is no API-level changelog and
+  no changelog for the REST contract itself — spec.yml changes ride along inside product releases.
+scheme: semver-per-repository
+changelog_url: https://github.com/chaoss/CollectOSS/releases
+api_changelog: false
+recent_window: since 2026-03-01
+entries:
+  - product: CollectOSS
+    version: v1.1.0-rc1
+    name: v1.1.0 RC1 Hello New Schemas
+    date: '2026-06-10'
+    prerelease: true
+    breaking: true
+    highlights:
+      - >-
+        Core database schema names renamed — augur_data becomes data, augur_operations becomes
+        operations. Any downstream reading the schema directly breaks.
+      - >-
+        Published explicitly as an RC so downstream instances have time to adapt to the breaking
+        changes and so maintainers can write migration guides.
+  - product: CollectOSS
+    version: v1.0.0
+    name: Initial Release
+    date: '2026-05-05'
+    prerelease: false
+    breaking: false
+    highlights:
+      - Non-breaking code references and documentation renamed from Augur to CollectOSS.
+      - Fixed a bug requiring a restart before Facade jobs would schedule on small instances (PR 290).
+      - Simplified the end-of-facade-run unresolved-contributor query to fetch all unresolved contributors for the repo.
+  - product: GrimoireLab
+    version: 1.21.0
+    date: '2026-06-19'
+    prerelease: false
+    highlights:
+      - >-
+        Coordinated release of the whole toolchain — perceval 1.5.0, sortinghat 1.15.0,
+        grimoire-elk 1.8.0, sirmordred 1.2.11, graal 1.2.9, cereslib 1.1.9, kidash 1.1.9,
+        grimoirelab-toolkit 1.2.7 and the four perceval backend bundles all published to PyPI the
+        same day.
+  - product: GrimoireLab
+    version: 1.20.3
+    date: '2026-05-06'
+    prerelease: false
+  - product: GrimoireLab
+    version: 1.20.2
+    date: '2026-03-05'
+    prerelease: false
+gaps:
+  - >-
+    No entry anywhere records a change to the REST contract. The contract's info.version has sat at
+    0.60.0 across the Augur-to-CollectOSS transition, so a consumer cannot tell from the spec whether
+    anything about the interface changed.
+maintainers:
+  - FN: Kin Lane
+    email: info@apievangelist.com

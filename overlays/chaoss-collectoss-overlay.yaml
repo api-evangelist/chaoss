@@ -1,0 +1,158 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the CollectOSS REST API
+  version: 1.0.0
+extends: ../openapi/chaoss-collectoss-openapi.yml
+x-provenance:
+  generated: '2026-09-05'
+  method: generated
+  provider: CHAOSS
+  providerId: chaoss
+  source: >-
+    Authored by API Evangelist against the verbatim provider contract harvested from
+    https://github.com/chaoss/CollectOSS/blob/main/docs/source/rest-api/spec.yml on 2026-09-05.
+  note: >-
+    This overlay records OUR annotations. It does not repair the contract and it must never be
+    merged back as if CHAOSS published it. In particular it deliberately does NOT invent a
+    servers[] host: CollectOSS is self-hosted and the provider's own documentation uses the
+    placeholder https://collectoss.example.com/api/unstable/. Supplying a concrete host here would
+    manufacture a callable endpoint that does not exist.
+actions:
+  - target: $.info
+    description: Record who publishes this contract, where it lives, and its licence.
+    update:
+      contact:
+        name: CHAOSS CollectOSS maintainers
+        url: https://github.com/chaoss/CollectOSS/issues
+      license:
+        name: MIT
+        identifier: MIT
+      x-provider: CHAOSS
+      x-provider-id: chaoss
+      x-source-repository: https://github.com/chaoss/CollectOSS
+      x-source-spec: https://github.com/chaoss/CollectOSS/blob/main/docs/source/rest-api/spec.yml
+      x-rendered-reference: https://docs.collectoss.org/en/latest/rest-api/api.html
+      x-parent-organization: Linux Foundation
+      x-successor-to: >-
+        Augur. github.com/chaoss/augur was archived 2026-07-23 with the notice "The Augur project is
+        no longer part of CHAOSS. Use CollectOSS instead!"
+  - target: $
+    description: >-
+      Flag the deployment model at document level. The document declares openapi 3.1.0 but carries
+      the Swagger 2.0 host/basePath keys and no servers[] block, so it names no callable host.
+    update:
+      x-deployment-model: self-hosted
+      x-base-path: /api/unstable/
+      x-documented-base-url-template: https://collectoss.example.com/api/unstable/
+      x-servers-absent: true
+      x-servers-absent-note: >-
+        No servers[] block exists. host: example.com and basePath: /api/unstable/ are Swagger 2.0
+        keys and are ignored by OpenAPI 3 tooling.
+  - target: $
+    description: Record the contract-quality defects an integrator hits before their first call.
+    update:
+      x-contract-defects:
+        - id: flask-path-templating
+          detail: >-
+            249 path parameters are written Flask-style (/repos/:repo_id) instead of OpenAPI-style
+            (/repos/{repo_id}). No OpenAPI tool will bind them; generators emit a literal ":repo_id"
+            segment.
+        - id: swagger2-response-schema
+          detail: >-
+            Responses use responses.<code>.schema rather than responses.<code>.content.<media>.schema.
+            Strict OpenAPI 3 tooling reads all 137 operations as returning no body.
+        - id: duplicate-operation-ids
+          detail: >-
+            134 unique operationIds across 137 operations. "Number of Releases (Repo)", "Open Issues
+            Count (Repo Group)" and "New Contributor Counts Stacked Bar Chart (shows actions)" each
+            appear twice.
+        - id: operation-ids-are-sentences
+          detail: >-
+            operationIds contain spaces and parentheses ("Average Issue Resolution Time (Repo Group)").
+            Most generators will mangle them into method names.
+        - id: prefix-parameter-mismatch
+          detail: >-
+            Twelve operations sit under a prefix that contradicts their path parameter — eleven
+            repo-scoped metrics under /repo-groups/:repo_id/ plus /repos/:repo_group_id/releases.
+        - id: query-params-typed-as-path
+          detail: >-
+            Date and period parameters are declared in: path when they are query parameters. On
+            GET /repos/:repo_id/code-changes all four of repo_id, period, begin_date and end_date are
+            typed as path parameters while only repo_id appears in the path template.
+        - id: no-security-schemes
+          detail: >-
+            components.securitySchemes is absent although the API implements OAuth 2.0 and four
+            operations require an Authorization header. An agent reading only the contract concludes
+            the API is anonymous.
+        - id: no-reusable-schemas
+          detail: >-
+            No components/schemas and no $ref anywhere. Every response shape is inlined per
+            operation, so there is no authoritative definition of a repository or a contributor.
+  - target: $
+    description: >-
+      Bind the contract to the CHAOSS metric vocabulary it implements. The tag names ARE the CHAOSS
+      focus areas, and CHAOSS is the body that defines them.
+    update:
+      x-domain-standard:
+        id: chaoss-metrics
+        name: CHAOSS Metrics and Metrics Models
+        url: https://www.chaoss.community/kb-metrics-and-metrics-models/
+        role: publisher-and-implementer
+      x-focus-area-operation-counts:
+        evolution: 52
+        experimental: 26
+        risk: 21
+        visualizations: 12
+        utility: 8
+        value: 8
+        complexity: 6
+        login: 2
+        DEI Badging: 2
+  - target: $
+    description: Record the runtime semantics an agent needs and the contract does not carry.
+    update:
+      x-runtime-semantics:
+        pagination: none
+        idempotency: none
+        reversibility: none
+        dry_run: false
+        rate_limit_headers: none
+        request_id_header: none
+        error_format: 'bespoke {"status": string}'
+        error_warning: >-
+          Seven of the nine catalogued failure modes are returned as HTTP 200 with a status string in
+          the body. Branching on the status code alone reads authentication failure as success.
+        identifier_portability: >-
+          repo_id and repo_group_id are assigned by the local instance and are not stable across
+          deployments. Resolve via GET /owner/:owner/repo/:repo first.
+  - target: $.paths['/user/session/generate'].post
+    description: Mark the token endpoint so tooling does not treat it as an ordinary business operation.
+    update:
+      x-oauth-role: token-endpoint
+      x-grant-type: authorization_code
+      x-not-replay-safe: true
+      x-note: >-
+        The temporary authorization code is one-time use and valid for seconds. Never retry this
+        call with the same code.
+  - target: $.paths['/user/session/refresh'].post
+    description: Mark the refresh endpoint as destructive.
+    update:
+      x-oauth-role: refresh-endpoint
+      x-grant-type: refresh_token
+      x-not-replay-safe: true
+      x-destructive: true
+      x-note: >-
+        On rotation the previous bearer token AND the previous refresh token are invalidated. A
+        client that loses this response has lost the session; there is no revoke or recovery endpoint.
+  - target: $.paths['/dei/repo/add'].post
+    description: Mark the only state-changing business write and its missing undo.
+    update:
+      x-write: true
+      x-reversal-operation: null
+      x-reversal-note: >-
+        No remove, untrack, cancel or delete operation exists in the contract or the documentation.
+        An agent that registers the wrong repository cannot undo it through the API.
+      x-quasi-idempotent: >-
+        A repeat call returns the body value "Repo already exists" rather than duplicating the row.
+        This is an observed response enum, not a documented idempotency guarantee, and it arrives
+        inside an HTTP 200.

@@ -1,0 +1,147 @@
+specification: API Commons Well-Known
+specificationVersion: '0.1'
+provider: CHAOSS
+providerId: chaoss
+generated: '2026-09-05'
+modified: '2026-09-05'
+method: probed
+source: >-
+  Live unauthenticated HTTPS probes run 2026-09-05 against every host this record knows — the
+  registrable domain and its www host, the CollectOSS documentation host, the GrimoireLab
+  documentation host, and the retired Augur documentation host.
+description: >-
+  Discovery-document probe for CHAOSS. RESULT: no /.well-known/ document is served on any CHAOSS
+  host. Every path returned 404. Two of the hosts (chaoss.community, www.chaoss.community) answer
+  404 with the full WordPress 404 page rather than a bare status body, and docs hosts answer with
+  the Read the Docs / GitHub Pages 404 shells — none of these is a document. No WellKnown or
+  SecurityTxt pointer is emitted in apis.yml as a result, because a pointer would assert that
+  CHAOSS serves a surface it does not.
+note: >-
+  CHAOSS does publish vulnerability-disclosure policy, but through GitHub Security Advisories in
+  SECURITY.md rather than a /.well-known/security.txt. See security/chaoss-vulnerability-disclosure.yml.
+hosts:
+  - host: chaoss.community
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 404
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        file: null
+      - path: /.well-known/api-catalog
+        status: 404
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 404
+        file: null
+      - path: /.well-known/agent.json
+        status: 404
+        file: null
+  - host: www.chaoss.community
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 404
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        file: null
+      - path: /.well-known/api-catalog
+        status: 404
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 404
+        file: null
+      - path: /.well-known/agent.json
+        status: 404
+        file: null
+  - host: docs.collectoss.org
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 404
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        file: null
+      - path: /.well-known/api-catalog
+        status: 404
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 404
+        file: null
+      - path: /.well-known/agent.json
+        status: 404
+        file: null
+  - host: chaoss.github.io
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 404
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        file: null
+      - path: /.well-known/api-catalog
+        status: 404
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 404
+        file: null
+      - path: /.well-known/agent.json
+        status: 404
+        file: null
+  - host: oss-augur.readthedocs.io
+    note: >-
+      Retired surface, probed for completeness. The Augur project left CHAOSS in March 2026 and this
+      host is no longer a CHAOSS property.
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 404
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        file: null
+      - path: /.well-known/api-catalog
+        status: 404
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 404
+        file: null
+      - path: /.well-known/agent.json
+        status: 404
+        file: null
+counts:
+  hosts_probed: 5
+  paths_probed: 35
+  documents_found: 0
+maintainers:
+  - FN: Kin Lane
+    email: info@apievangelist.com

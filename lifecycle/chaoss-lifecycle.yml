@@ -1,0 +1,89 @@
+specification: API Commons Lifecycle
+specificationVersion: '0.1'
+provider: CHAOSS
+providerId: chaoss
+generated: '2026-09-05'
+modified: '2026-09-05'
+method: searched
+source: >-
+  GitHub release history for chaoss/CollectOSS and chaoss/grimoirelab (GitHub REST API, 2026-09-05);
+  the archive notice on chaoss/augur; https://github.com/chaoss/CollectOSS/blob/main/SECURITY.md;
+  https://www.chaoss.community/software/; and the basePath declared in the published contract.
+description: >-
+  Versioning, support and retirement posture for the CHAOSS API surface. The dominant lifecycle fact
+  for this provider is not a version scheme — it is that the API this catalog listed a year ago no
+  longer belongs to CHAOSS.
+versioning:
+  scheme: unversioned-path
+  path_segment: /api/unstable/
+  current_contract_version: 0.60.0
+  note: >-
+    Every one of the 137 operations sits under basePath `/api/unstable/`. The provider is telling
+    callers, in the URL itself, that the interface is not stabilised. The contract's own
+    info.version (0.60.0) is inherited from the Augur-era spec file and does NOT track the product
+    release line (v1.0.0 / v1.1.0-rc1), so there are two unrelated version numbers in play.
+  breaking_change_policy: null
+  breaking_change_note: >-
+    No written breaking-change policy exists. The v1.1.0-RC1 release notes state the release exists
+    "to allow downstreams and instances more time to test and adapt to some of the breaking changes"
+    — a courtesy RC, not a policy.
+deprecation:
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  deprecated_operations: []
+  note: >-
+    No operation in the contract carries `deprecated: true`. No Sunset or Deprecation response header
+    is declared or documented. The project-level retirement below was announced in prose and by
+    archiving a repository, not through the API.
+retirements:
+  - subject: Augur REST API
+    status: removed-from-provider
+    date: '2026-03-29'
+    archived_at: '2026-07-23'
+    former_pointer: https://github.com/chaoss/augur
+    successor: CollectOSS REST API
+    successor_pointer: https://github.com/chaoss/CollectOSS
+    evidence: >-
+      github.com/chaoss/augur is archived and carries the description "The Augur project is no longer
+      part of CHAOSS. Use CollectOSS instead!" (GitHub API, 2026-09-05). CHAOSS published
+      https://www.chaoss.community/public-update-on-recent-events-at-chaoss/ on 2026-04-14 describing
+      the 2026-03-29 departure of co-founder Sean Goggins. The current
+      https://www.chaoss.community/software/ page names only CollectOSS and GrimoireLab as CHAOSS
+      software.
+    integrator_impact: >-
+      The former Augur demo host ai.chaoss.io now serves an unrelated product ("Aveloxis", per
+      https://ai.chaoss.io/ 2026-09-05, on the proxy-registered domain chaoss.io) and answers 404 at
+      /api. Any client still pointed at that base URL is calling a host CHAOSS does not control.
+      oss-augur.readthedocs.io/en/dev/rest-api/api.html now returns 404.
+support:
+  sla: null
+  status_page: null
+  status_page_note: >-
+    None exists and none is expected: CollectOSS and GrimoireLab are self-hosted software, so
+    availability is the operator's, not CHAOSS's. There is no CHAOSS-run production API to monitor.
+  supported_versions: >-
+    "We currently provide security updates for the latest tagged release of CollectOSS. Older
+    versions are not actively supported. In exceptional circumstances, maintainers may choose to
+    backport fixes on a case-by-case basis." — https://github.com/chaoss/CollectOSS/blob/main/SECURITY.md
+  support_channels:
+    - https://github.com/chaoss/CollectOSS/issues
+    - CHAOSS Slack #wg-collectoss-8knot
+    - https://chaoss.discourse.group/categories
+release_cadence:
+  collectoss:
+    first_release: '2026-05-05'
+    latest_stable: v1.0.0
+    latest_stable_date: '2026-05-05'
+    latest_prerelease: v1.1.0-rc1
+    latest_prerelease_date: '2026-06-10'
+    note: Only two releases exist. The project is four months old under this name.
+  grimoirelab:
+    latest_stable: 1.21.0
+    latest_stable_date: '2026-06-19'
+    prior: [1.20.3 (2026-05-06), 1.20.2 (2026-03-05)]
+    note: Roughly monthly-to-quarterly, with an RC preceding each stable tag.
+maintainers:
+  - FN: Kin Lane
+    email: info@apievangelist.com

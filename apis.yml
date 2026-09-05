@@ -5,13 +5,17 @@ description: >-
   CHAOSS (Community Health Analytics in Open Source Software) is a Linux
   Foundation project that develops metrics, methodologies, software, and
   practitioner guides for measuring and improving open source community
-  health and sustainability. It produces a metrics catalog organized into
-  focus areas (Common, DEI, Risk, Value, Evolution) and metrics models,
-  along with open source software (Augur, 8Knot, GrimoireLab) that
-  ingests data from Git, GitHub, GitLab, mailing lists, and other
-  community platforms to compute the metrics. CHAOSS-aligned SaaS
-  services such as OSS Compass and Bitergia Analytics also expose the
-  metrics for adopters who do not want to host the software themselves.
+  health and sustainability. It maintains a metrics catalog organized into
+  focus areas (Common, DEI, Risk, Value, Evolution) plus metrics models,
+  and ships the open source software that computes them: CollectOSS, a
+  Python data-collection tool that stores forge data in PostgreSQL and
+  exposes a 137-operation REST API of CHAOSS-aligned metrics, and
+  GrimoireLab, a Python toolchain and OpenSearch dashboard that ingests
+  30+ data sources. Both are self-hosted — CHAOSS operates no hosted API
+  and sells nothing. CHAOSS also runs the DEI Project Badging program and
+  publishes practitioner guides for OSPOs, maintainers and funders. Augur,
+  formerly the CHAOSS reference implementation, left the project in March
+  2026 and was superseded by CollectOSS.
 type: Index
 deliveryModel:
   model: unknown
@@ -60,34 +64,54 @@ tags_raw:
   - Risk
   - Sustainability
 created: '2026-03-16'
-modified: '2026-04-23'
+modified: '2026-09-05'
 url: >-
   https://raw.githubusercontent.com/api-evangelist/chaoss/refs/heads/main/apis.yml
 specificationVersion: '0.23'
 apis:
-  - aid: chaoss:augur-api
-    name: CHAOSS Augur REST API
+  - aid: chaoss:collectoss-api
+    name: CollectOSS REST API
     description: >-
-      Augur is a CHAOSS reference implementation that collects data from
-      GitHub, GitLab, mailing lists, and other community sources, and
-      exposes a REST API for querying CHAOSS-aligned metrics on
-      repositories, contributors, issues, pull requests, releases, and
-      more. The API powers downstream analytics tools and dashboards
-      including 8Knot.
-    humanURL: https://oss-augur.readthedocs.io/
-    baseURL: https://ai.chaoss.io/api
+      CollectOSS (pronounced "collect us") is the CHAOSS reference data
+      collection and storage tool for open source community health. It
+      harvests data from GitHub and GitLab forges into a PostgreSQL
+      schema and exposes a Flask/Gunicorn REST API of 137 operations
+      that return CHAOSS-aligned metrics grouped by the CHAOSS focus
+      areas — evolution, risk, value, complexity, experimental — plus
+      utility, visualization, DEI Badging and OAuth login endpoints. It
+      is the successor to Augur, which left the CHAOSS project in March
+      2026; CollectOSS is self-hosted, so each deployment serves the API
+      from its own host under /api/unstable/.
+    humanURL: https://docs.collectoss.org/en/latest/
+    baseURL: https://collectoss.example.com/api/unstable
     tags:
-      - Augur
+      - CHAOSS Metrics
+      - CollectOSS
       - Community Health
       - Metrics
       - REST
+      - Self-Hosted
     properties:
+      - type: OpenAPI
+        url: openapi/chaoss-collectoss-openapi.yml
+      - type: Overlay
+        url: overlays/chaoss-collectoss-overlay.yaml
       - type: Documentation
-        url: https://oss-augur.readthedocs.io/
+        url: https://docs.collectoss.org/en/latest/
+      - type: APIReference
+        url: https://docs.collectoss.org/en/latest/rest-api/api.html
       - type: GitHubRepository
-        url: https://github.com/chaoss/augur
-      - type: API
-        url: https://oss-augur.readthedocs.io/en/dev/rest-api/api.html
+        url: https://github.com/chaoss/CollectOSS
+      - type: Authentication
+        url: authentication/chaoss-authentication.yml
+      - type: ErrorCatalog
+        url: errors/chaoss-problem-types.yml
+      - type: DataModel
+        url: data-model/chaoss-data-model.yml
+      - type: X-MCPServerCandidate
+        url: mcp/chaoss-mcp.yml
+      - type: AgentSkill
+        url: skills/_index.yml
   - aid: chaoss:metrics-catalog
     name: CHAOSS Metrics Catalog
     description: >-
@@ -95,10 +119,11 @@ apis:
       reference of community-health metrics organized into focus areas
       (Common, DEI, Risk, Value, Evolution) plus metrics models that
       compose them. The catalog is openly licensed and published on the
-      CHAOSS website and the chaoss/metrics GitHub repository, and is
-      consumed by Augur, GrimoireLab, OSS Compass, Bitergia Analytics,
-      and other implementations.
-    humanURL: https://chaoss.community/metrics/
+      CHAOSS website. The chaoss/metrics repository was archived and the
+      working groups now maintain the definitions; the catalog is
+      consumed by CollectOSS, GrimoireLab and third-party
+      implementations.
+    humanURL: https://www.chaoss.community/kb-metrics-and-metrics-models/
     tags:
       - Catalog
       - Documentation
@@ -109,7 +134,7 @@ apis:
         url: https://chaoss.community/kbtopic/all-metrics/
       - type: GitHubRepository
         url: https://github.com/chaoss/wg-metrics-models
-      - type: MetricsRepository
+      - type: GitHubRepository
         url: https://github.com/chaoss/community
   - aid: chaoss:grimoirelab
     name: CHAOSS GrimoireLab
@@ -149,7 +174,7 @@ apis:
         url: https://github.com/oss-aspen/8knot
 common:
   - type: IssueTracker
-    url: https://github.com/chaoss/augur/issues
+    url: https://github.com/chaoss/CollectOSS/issues
   - type: CodeOfConduct
     url: https://github.com/chaoss/.github/blob/main/CODE_OF_CONDUCT.md
   - type: DomainSecurity
@@ -165,27 +190,61 @@ common:
     description: Source code and repositories for CHAOSS.
     url: https://github.com/chaoss
   - type: WorkingGroups
-    url: https://chaoss.community/working-groups/
+    url: https://www.chaoss.community/kb/working-groups/
   - type: Events
-    url: https://chaoss.community/events/
+    url: https://www.chaoss.community/chaoss-calendar/
   - type: Blog
-    url: https://chaoss.community/news-blog/
+    url: https://www.chaoss.community/blog/
   - type: PractitionerGuides
-    url: https://chaoss.community/practitioner-guides/
+    url: https://www.chaoss.community/about-chaoss-practitioner-guides/
   - type: ParentOrganization
     url: https://www.linuxfoundation.org/
   - type: GettingStarted
-    url: https://chaoss.community/get-started/
+    url: https://www.chaoss.community/kb-getting-started/
   - type: Community
-    url: https://chaoss.community/participate/
+    url: https://www.chaoss.community/chaoss-calendar/
   - type: Slack
-    url: https://chaoss.community/connect/
+    url: https://join.slack.com/t/chaoss-workspace/shared_invite/zt-35ir7w0jr-aiwTPYShbj~mMsMbzhGWWQ
   - type: YouTube
-    url: https://www.youtube.com/c/CHAOSScommunity
+    url: https://www.youtube.com/@CHAOSStube
   - type: LinkedIn
-    url: https://www.linkedin.com/company/chaoss-community/
+    url: https://www.linkedin.com/company/chaoss
   - type: X
     url: https://x.com/chaossproj
+  - type: GitHubOrganization
+    url: https://github.com/chaoss
+  - type: Support
+    url: https://github.com/chaoss/community/discussions
+  - type: PrivacyPolicy
+    url: https://www.chaoss.community/data-policies/
+  - type: GovernanceRules
+    url: https://www.chaoss.community/governance/
+  - type: Packages
+    url: packages/chaoss-packages.yml
+  - type: CLI
+    url: cli/chaoss-cli.yml
+  - type: Conventions
+    url: conventions/chaoss-conventions.yml
+  - type: Conformance
+    url: conformance/chaoss-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/chaoss-lifecycle.yml
+  - type: ChangeLog
+    url: changelog/chaoss-changelog.yml
+  - type: Sandbox
+    url: sandbox/chaoss-sandbox.yml
+  - type: OAuthScopes
+    url: scopes/chaoss-scopes.yml
+  - type: Plans
+    url: plans/chaoss-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/chaoss-rate-limits.yml
+  - type: LLMsTxt
+    url: llms/chaoss-llms.txt
+  - type: Security
+    url: security/chaoss-vulnerability-disclosure.yml
+  - type: VulnerabilityDisclosure
+    url: security/chaoss-vulnerability-disclosure.yml
   - name: Features
     type: Features
     data:
@@ -220,15 +279,17 @@ common:
   - name: Tools
     type: Tools
     data:
-      - name: Augur
+      - name: CollectOSS
       - name: GrimoireLab
       - name: 8Knot
-      - name: Bitergia Analytics
-      - name: OSS Compass
-      - name: Cauldron
-      - name: Sortinghat
       - name: Perceval
+      - name: Sortinghat
       - name: GrimoireELK
+      - name: SirMordred
+      - name: Graal
+      - name: Kidash
+      - name: Cereslib
+      - name: DEI Project Badging
   - name: WorkingGroups
     type: WorkingGroups
     data:
@@ -262,3 +323,8 @@ common:
 maintainers:
   - FN: Kin Lane
     email: info@apievangelist.com
+x-enrichment:
+  date: '2026-09-05'
+  status: enriched
+  artifacts_added: 22
+  pass: local-v3

@@ -1,0 +1,116 @@
+specification: API Commons Conformance
+specificationVersion: '0.1'
+provider: CHAOSS
+providerId: chaoss
+api: CollectOSS REST API
+generated: '2026-09-05'
+modified: '2026-09-05'
+method: derived
+source: >-
+  Derived from the published contract openapi/chaoss-collectoss-openapi.yml (harvested verbatim from
+  https://github.com/chaoss/CollectOSS/blob/main/docs/source/rest-api/spec.yml, 2026-09-05) and the
+  CollectOSS OAuth documentation at https://docs.collectoss.org/en/latest/login.html.
+description: >-
+  Cross-cutting and domain standards asserted by the CollectOSS REST API. CHAOSS is unusual here:
+  it is itself the standards body for the domain the contract serves, and the contract points at
+  the CHAOSS metric definitions from its own externalDocs block.
+conformance:
+  - id: oauth2
+    name: OAuth 2.0 (RFC 6749) authorization code grant
+    conforms: true
+    evidence: >-
+      https://docs.collectoss.org/en/latest/login.html — "CollectOSS implements the Oauth 2.0
+      specification, and each CollectOSS instance is capable of acting as an authorization server
+      for external applications." Backed by POST /user/session/generate (grant_type=code) and
+      POST /user/session/refresh (grant_type=refresh_token) in the contract.
+    deviations:
+      - >-
+        Token requests pass `code`, `grant_type` and `refresh_token` as QUERY parameters, not as an
+        application/x-www-form-urlencoded request body as RFC 6749 section 4.1.3 requires.
+      - >-
+        Authenticated requests carry two credentials in one header
+        (`Authorization: Client [secret], Bearer [token]`), which is not RFC 7235 syntax.
+      - No scope vocabulary is published, so RFC 6749 section 3.3 scope negotiation is unavailable.
+  - id: oidc
+    name: OpenID Connect
+    conforms: false
+    evidence: >-
+      No /.well-known/openid-configuration on any CHAOSS host (5 hosts probed 2026-09-05, all 404 —
+      see well-known/chaoss-well-known.yml). No id_token in the token response schema.
+  - id: rfc9457
+    name: RFC 9457 Problem Details for HTTP APIs
+    conforms: false
+    evidence: >-
+      No application/problem+json media type appears anywhere in the contract. The four documented
+      400 responses return a bespoke `{"status": "Missing argument"}` object. See
+      errors/chaoss-problem-types.yml.
+  - id: rfc9111_conditional_requests
+    name: HTTP conditional requests / caching headers
+    conforms: false
+    evidence: No ETag, Last-Modified, Cache-Control or If-None-Match parameter or header in the contract.
+  - id: pagination
+    name: Documented pagination
+    conforms: false
+    evidence: >-
+      Zero pagination parameters across 137 operations. The parameter census is repo_id (68),
+      end_date (62), repo_group_id (54), begin_date (50), period (30) — no page, offset, limit,
+      cursor or per_page anywhere. GET /repos returns every downloaded repository in one array.
+  - id: idempotency
+    name: Idempotency keys on writes
+    conforms: false
+    evidence: >-
+      No Idempotency-Key header on any of the four POST operations. See conventions/chaoss-conventions.yml.
+  - id: rate_limit_headers
+    name: RFC 9239 / draft-ietf-httpapi RateLimit response headers
+    conforms: false
+    evidence: >-
+      No RateLimit-*, X-RateLimit-* or Retry-After header is declared in the contract or documented
+      anywhere in the CollectOSS documentation. See rate-limits/chaoss-rate-limits.yml.
+domain_standards:
+  - id: chaoss-metrics
+    name: CHAOSS Metrics and Metrics Models
+    conforms: true
+    role: publisher-and-implementer
+    evidence: >-
+      The contract's own externalDocs block declares
+      `description: CHAOSS Metric Definitions, url: https://chaoss.community/kb-metrics-and-metrics-models/`,
+      and its operation tags ARE the CHAOSS focus areas: evolution (52 operations), risk (21),
+      value (8), complexity (6), plus experimental (26). Operation names map one-to-one onto named
+      CHAOSS metrics — Code Changes, Code Changes Lines, New Contributors, Issue Backlog, Issue
+      Response Time, Review Duration, Reviews Accepted, Reviews Declined, License Coverage, License
+      Declared, Committers, Fork Count, Watchers, Stars.
+    note: >-
+      CHAOSS is the standards body that defines this vocabulary, so this is a first-party
+      implementation of a standard the provider itself maintains — the strongest possible form of
+      domain-standard signature, and the reason an integrator who already speaks CHAOSS metrics
+      needs no bespoke connector to read a CollectOSS instance.
+  - id: chaoss-dei-badging
+    name: CHAOSS DEI Project Badging
+    conforms: true
+    evidence: >-
+      Two dedicated operations tagged "DEI Badging" in the contract: POST /dei/repo/add
+      ("Add and start repo for DEI Badging", parameters id/level/url) and POST /dei/report
+      ("Request the report for the given badging project", returns a binary PDF). Program page:
+      https://github.com/chaoss/ProjectBadging
+  - id: openssf-best-practices-badge
+    name: OpenSSF (CII) Best Practices Badge
+    conforms: true
+    role: consumer
+    evidence: >-
+      GET /repo-groups/:repo_group_id/cii-best-practices-badge and
+      GET /repos/:repo_id/cii-best-practices-badge surface the OpenSSF Best Practices badge level as
+      a first-class risk metric. CollectOSS reads the standard rather than defining it.
+  - id: spdx
+    name: SPDX software bill of materials
+    conforms: true
+    role: consumer
+    evidence: >-
+      https://docs.collectoss.org/en/latest/schema/overview.html — "The spdx schema serves the
+      storage for software bill of materials and license declarations scans on projects". Surfaced
+      through the license-coverage, license-declared and license-count risk operations.
+    note: >-
+      SPDX storage is a database-schema capability. The REST contract exposes the derived license
+      metrics, not an SPDX document endpoint, so this is not an SPDX document-exchange conformance.
+maintainers:
+  - FN: Kin Lane
+    email: info@apievangelist.com

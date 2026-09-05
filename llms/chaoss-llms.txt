@@ -1,0 +1,111 @@
+# CHAOSS
+
+> CHAOSS (Community Health Analytics in Open Source Software) is a Linux Foundation project that
+> defines metrics, metrics models and practitioner guidance for measuring open source community
+> health, and ships the open source software that computes them. CHAOSS operates no hosted API of
+> its own — its software is self-hosted, so every API surface below runs on an operator's own
+> infrastructure.
+
+Generated 2026-09-05 by API Evangelist from apis.yml and the artifacts in this repository. CHAOSS
+publishes no llms.txt of its own; /llms.txt returns 404 on chaoss.community, docs.collectoss.org and
+chaoss.github.io (probed 2026-09-05).
+
+## Read this first
+
+- Augur is no longer part of CHAOSS. github.com/chaoss/augur was archived 2026-07-23 with the notice
+  "The Augur project is no longer part of CHAOSS. Use CollectOSS instead!". The former Augur demo
+  host ai.chaoss.io now serves an unrelated product and answers 404 at /api. Do not point a client
+  at it.
+- The current CHAOSS software is CollectOSS and GrimoireLab: https://www.chaoss.community/software/
+- CollectOSS is the only CHAOSS project with a REST API.
+
+## APIs
+
+- [CollectOSS REST API](https://docs.collectoss.org/en/latest/rest-api/api.html): 137 operations
+  (133 GET, 4 POST) returning CHAOSS metrics for repositories and repo groups. Self-hosted; base
+  path /api/unstable/ on the operator's own host. OpenAPI 3.1.0 published at
+  https://github.com/chaoss/CollectOSS/blob/main/docs/source/rest-api/spec.yml
+- [CHAOSS Metrics Catalog](https://www.chaoss.community/kb-metrics-and-metrics-models/): the metric
+  definitions themselves, as prose reference. Not a callable API.
+- [GrimoireLab](https://chaoss.github.io/grimoirelab/): a Python analytics toolchain and OpenSearch
+  dashboard, not a REST API. Consume it as libraries — see the PyPI packages below.
+- [8Knot](https://github.com/oss-aspen/8Knot): a Dash visualization app over CollectOSS data, run by
+  OSCI at https://eightknot.osci.io. Not a CHAOSS-operated API.
+
+## CollectOSS REST API — what an agent needs to know
+
+- Operation families, by CHAOSS focus area: evolution (52), experimental (26), risk (21),
+  visualizations (12), utility (8), value (8), complexity (6), login (2), DEI Badging (2).
+- Auth: OAuth 2.0 authorization code, with EACH INSTANCE acting as its own authorization server.
+  Authenticated requests carry both credentials in one header:
+  `Authorization: Client [Client Secret], Bearer [User Session Token]`.
+  Docs: https://docs.collectoss.org/en/latest/login.html
+- No OAuth scopes are published. Authorization is all-or-nothing per Client Application.
+- Identifiers: repo_id and repo_group_id are assigned by the local instance and are NOT portable
+  between deployments. Resolve first with GET /owner/:owner/repo/:repo.
+- No pagination on any operation. GET /repos returns every tracked repository in one array.
+- No idempotency keys, no dry-run, no reversal path for the one business write
+  (POST /dei/repo/add), no rate-limit headers, no request-id header.
+- Errors: seven of nine catalogued failure modes are returned as HTTP 200 with a `status` string in
+  the body. Do not branch on the status code alone.
+- Contract caveats: path parameters are Flask-style (`/repos/:repo_id`, not `{repo_id}`), responses
+  use the Swagger 2.0 `schema` key, there are no securitySchemes and no reusable component schemas.
+
+## Packages
+
+All first-party, all GPL-3.0-or-later unless noted. Versions read from PyPI on 2026-09-05.
+
+- grimoirelab 1.21.0 (2026-06-19) — https://pypi.org/project/grimoirelab/
+- perceval 1.5.0 (2026-06-19) — data retrieval from 30+ platforms
+- sortinghat 1.15.0 (2026-06-19) — contributor identity management
+- grimoire-elk 1.8.0 (2026-06-19) — storage into OpenSearch/Elasticsearch
+- sirmordred 1.2.11 (2026-06-19) — dashboard orchestration
+- graal 1.2.9, cereslib 1.1.9, kidash 1.1.9, grimoirelab-toolkit 1.2.7 (all 2026-06-19)
+- perceval-mozilla / -opnfv / -puppet / -weblate (2026-06-19) — backend bundles
+- grimoirelab-core 0.1.0 and grimoirelab-chronicler 0.1.0 (2025-10-16) — pre-1.0
+- kingarthur 0.2.5 (2022-11-07) — stale; nearly four years behind the rest of the toolchain
+- CollectOSS ships as a container image only: ghcr.io/chaoss/collectoss (v1.0.0 stable,
+  v1.1.0-rc1 pre-release). There is no `collectoss` package on PyPI.
+
+## Documentation
+
+- CollectOSS docs: https://docs.collectoss.org/en/latest/
+- CollectOSS API reference: https://docs.collectoss.org/en/latest/rest-api/api.html
+- CollectOSS OAuth flow: https://docs.collectoss.org/en/latest/login.html
+- CollectOSS database schema: https://docs.collectoss.org/en/latest/schema/overview.html
+- CollectOSS CLI: https://docs.collectoss.org/en/latest/getting-started/command-line-interface/toc.html
+- GrimoireLab: https://chaoss.github.io/grimoirelab/
+- CHAOSS metrics and metrics models: https://www.chaoss.community/kb-metrics-and-metrics-models/
+- Practitioner guides: https://www.chaoss.community/about-chaoss-practitioner-guides/
+- Getting started: https://www.chaoss.community/kb-getting-started/
+
+## Security
+
+- CollectOSS: https://github.com/chaoss/CollectOSS/blob/main/SECURITY.md — report privately via
+  https://github.com/chaoss/collectoss/security/advisories/new. Security updates for the latest
+  tagged release only.
+- GrimoireLab: https://github.com/chaoss/grimoirelab/blob/main/SECURITY.md
+- No /.well-known/security.txt is served on any CHAOSS host.
+
+## Commercial terms
+
+CHAOSS publishes no plans, no pricing and no rate limits. The software is MIT (CollectOSS) and
+GPL-3.0-or-later (GrimoireLab) and you run it yourself; there is nothing to buy and no quota to
+exceed. CHAOSS is a Linux Foundation project funded by member organizations, not by API usage.
+
+## Community
+
+- GitHub: https://github.com/chaoss
+- Issues: https://github.com/chaoss/CollectOSS/issues
+- Slack: https://join.slack.com/t/chaoss-workspace/shared_invite/zt-35ir7w0jr-aiwTPYShbj~mMsMbzhGWWQ
+- Discussions: https://github.com/chaoss/community/discussions
+- YouTube: https://www.youtube.com/@CHAOSStube
+- Calendar and events: https://www.chaoss.community/chaoss-calendar/
+- Blog: https://www.chaoss.community/blog/
+- Working groups: https://www.chaoss.community/kb/working-groups/
+
+## What CHAOSS does not have
+
+No hosted API. No MCP server. No A2A agent card. No /.well-known/ documents of any kind. No status
+page. No pricing page. No AsyncAPI, webhooks or event surface. Each of these was probed on
+2026-09-05 and recorded as absent — see well-known/chaoss-well-known.yml and mcp/chaoss-mcp.yml.

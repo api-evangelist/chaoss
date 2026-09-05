@@ -1,0 +1,129 @@
+specification: API Commons Authentication
+specificationVersion: '0.1'
+provider: CHAOSS
+providerId: chaoss
+api: CollectOSS REST API
+generated: '2026-09-05'
+modified: '2026-09-05'
+method: searched
+source: >-
+  https://docs.collectoss.org/en/latest/login.html ("CollectOSS OAuth Flow", HTTP 200, fetched
+  2026-09-05) reconciled against the login operations in the published contract
+  openapi/chaoss-collectoss-openapi.yml (POST /user/session/generate, POST /user/session/refresh).
+docs: https://docs.collectoss.org/en/latest/login.html
+description: >-
+  CollectOSS implements OAuth 2.0 authorization code grant, and each CollectOSS deployment acts as
+  its own authorization server. There is no CHAOSS-operated identity provider: credentials are issued
+  by whichever instance you are calling. Authenticated requests carry BOTH the client secret and the
+  user bearer token in a single Authorization header, which is a non-standard composition and is the
+  single most important thing an integrator or agent has to get right.
+spec_gap: >-
+  The published OpenAPI declares NO components.securitySchemes and no top-level security block. The
+  auth model below is read entirely from the prose documentation and from the header parameters on
+  the four POST operations, each of which declares `Authorization: Client [API_Key]` as a required
+  header. An agent consuming only the machine-readable contract would conclude the API is anonymous.
+schemes:
+  - id: oauth2_authorization_code
+    type: oauth2
+    flow: authorizationCode
+    in: header
+    header: Authorization
+    description: >-
+      Three-legged OAuth 2.0. The flow must be initiated by explicit user intent — the docs state the
+      application "must not request initial authorization on the user's behalf, and must not
+      automatically redirect the user to the authorization server."
+    authorization_endpoint: /user/authorize
+    authorization_params:
+      - name: client_id
+        required: true
+        description: The Application ID issued when the Client Application was registered.
+      - name: response_type
+        required: true
+        value: code
+      - name: state
+        required: false
+        description: Optional caller-defined value echoed back on redirect.
+    token_endpoint: /api/unstable/user/session/generate
+    token_operation_id: Generate User Session Token
+    token_params:
+      - name: code
+        in: query
+        required: true
+        description: The temporary authorization code, one-time use and valid for seconds only.
+      - name: grant_type
+        in: query
+        required: true
+        value: code
+      - name: Authorization
+        in: header
+        required: true
+        format: 'Client [client secret]'
+    token_response_fields: [status, username, access_token, refresh_token, token_type, expires]
+    refresh_endpoint: /api/unstable/user/session/refresh
+    refresh_operation_id: Refresh User Session Token
+    refresh_params:
+      - name: refresh_token
+        in: query
+        required: true
+      - name: grant_type
+        in: query
+        required: true
+        value: refresh_token
+      - name: Authorization
+        in: header
+        required: true
+        format: 'Client [client secret]'
+    refresh_rotation: >-
+      Both the access token and the refresh token may be rotated. The docs state the returned bearer
+      token may or may not equal the current one, and that when it differs, the previous bearer token
+      AND the previous refresh token are invalidated. A refresh token may only be used by the
+      application that issued it — reuse by another application returns status "Invalid application".
+    token_lifetime: >-
+      Variable. The token response carries an `expires` integer (seconds until the access_token
+      expires); no fixed default is published.
+    scopes: []
+    scopes_note: >-
+      No OAuth scopes are defined. The authorization page is documented as telling the user "what
+      information will be shared", but neither the docs nor the contract enumerate a scope
+      vocabulary, so authorization is all-or-nothing per application.
+  - id: client_credential_header
+    type: apiKey
+    in: header
+    header: Authorization
+    format: 'Client [client secret]'
+    description: >-
+      The client secret alone authenticates the two DEI Badging write operations
+      (POST /dei/repo/add, POST /dei/report) and the two token endpoints. Each declares the
+      Authorization header as required with description "Client [API_Key]".
+    applies_to_operations:
+      - DEI Badging Tracking
+      - DEI Badging Report
+      - Generate User Session Token
+      - Refresh User Session Token
+authenticated_request_format:
+  header: Authorization
+  value: 'Client [Client Secret], Bearer [User Session Token]'
+  note: >-
+    Both credentials must be present in the SAME Authorization header, comma-separated. This is not
+    RFC 7235 credential syntax and will break naive clients and most generated SDKs, which assume a
+    single scheme token per header.
+registration:
+  self_service: true
+  steps:
+    - Register a user account on the target CollectOSS instance via Login -> Register.
+    - Open your username -> Profile -> Applications.
+    - Create an application with a name and a redirect URL reachable by the user's browser.
+    - Record the Application ID and Client Secret shown after creation.
+  local_testing_note: >-
+    The docs explicitly allow http://127.0.0.1/ or http://localho.st as a redirect host for local
+    testing, and warn that the authorization server does not verify the redirect URL is reachable.
+deployment_prerequisite: >-
+  Instances behind Nginx or Apache must set `proxy_set_header X-Forwarded-Proto $scheme;` (or the
+  Apache equivalent) or the OAuth flow will not work.
+unauthenticated_surface: >-
+  The 133 GET metric operations declare no Authorization header in the contract. Whether they are
+  in fact anonymous is an instance deployment decision and is not stated in the documentation;
+  this artifact does not assert that they are.
+maintainers:
+  - FN: Kin Lane
+    email: info@apievangelist.com

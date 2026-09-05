@@ -1,0 +1,163 @@
+specification: API Commons Data Model
+specificationVersion: '0.1'
+provider: CHAOSS
+providerId: chaoss
+api: CollectOSS REST API
+generated: '2026-09-05'
+modified: '2026-09-05'
+method: derived
+source: >-
+  Derived from a full response-property census of openapi/chaoss-collectoss-openapi.yml (137
+  operations) and read against the CollectOSS schema documentation at
+  https://docs.collectoss.org/en/latest/schema/overview.html and its per-table pages (commits,
+  contributors, dependencies, issues, pull-requests), 2026-09-05.
+description: >-
+  Entity-relationship graph for the CollectOSS REST API. IMPORTANT CAVEAT ON METHOD: the contract
+  declares no components/schemas and contains no $ref anywhere — every response schema is inlined
+  per operation. This graph is therefore derived from repeated id-reference fields across those
+  inline schemas plus the published database schema documentation, not from reusable component
+  definitions. Relationship cardinalities are read from the URL hierarchy and the field names, and
+  are marked with confidence.
+schema_source_gap: >-
+  Zero reusable schemas. The same repository object is re-declared inline dozens of times with
+  varying field sets, so there is no single authoritative shape for any entity in the contract. A
+  code generator produces one anonymous type per operation.
+root_entity: repository
+entities:
+  - name: repo_group
+    id_field: repo_group_id
+    id_type: integer
+    scope: instance-local
+    fields: [repo_group_id, rg_name, rg_description, rg_website, rg_type, rg_recache, rg_last_modified, data_source, data_collection_date, tool_source, tool_version]
+    description: >-
+      The top-level grouping. A repo group typically corresponds to a GitHub/GitLab organization or a
+      curated ecosystem (the docs' own example is "Rails Ecosystem", rg_type "GitHub Organization").
+      Created by the operator through `collectoss db add-repo-groups`, never through the API.
+    read_operations: [Get All Repo Groups, Get Repos in Repo Group, Get Repo by Repo Name]
+  - name: repository
+    id_field: repo_id
+    id_type: integer
+    scope: instance-local
+    alternate_keys: ['owner + repo name', 'rg_name + repo_name', base64_url]
+    fields: [repo_id, repo_name, repo_git, url, base64_url, description, repo_status, rg_name, commits_all_time, issues_all_time, forks, stars, watchers]
+    description: >-
+      The central entity. 55 of 137 operations take repo_id and 76 response schemas carry repo_name.
+      Added by the operator through `collectoss db add-repos`.
+    read_operations: [Get All Repos, Get Repo By ID, Get Repo by Owner and Repo Name, Get Repo by Repo Group Name and Repo Name]
+  - name: contributor
+    id_field: cntrb_id
+    fields: [name, email, login, commits, patches, count]
+    description: >-
+      Person-level aggregate behind Contributors, New Contributors, Committers, Top Committers and
+      Lines Changed by Author. Identity resolution happens during collection ("the query that finds
+      unresolved contributors at the end of a facade run", v1.0.0 release notes), not at read time.
+    pii_note: >-
+      Contributor responses include `email` and `name`. Any agent caching these is caching personal
+      data harvested from public forges.
+  - name: issue
+    id_field: issue_id
+    fields: [issue_id, issue_date, created_at, closed_at, duration, issues]
+    description: Backs 20+ evolution and risk operations (backlog, throughput, new, closed, open age, resolution duration, participants, maintainer response duration).
+  - name: pull_request
+    id_field: pull_request_id
+    fields: [pull_request_id, pr_count, new_pull_requests, merged_count, created_date, closed_at]
+    description: Backs the reviews, review-duration, acceptance-rate and the 8 pull_request_reports visualizations.
+  - name: commit
+    fields: [commit_count, commits, patches, net, date]
+    description: Backs Code Changes, Code Changes Lines, Annual Commit Count rankings and Top Committers.
+  - name: message
+    description: >-
+      Per the schema documentation, "all messages are stored in CollectOSS in the messages table" so
+      that issue and PR comment tone can be analysed in one place. Surfaced through Repository
+      Messages and Issue Comments Mean.
+  - name: release
+    description: Surfaced only as a count, through the two Number of Releases operations.
+  - name: license_declaration
+    fields: [coverage, file_without_licenses, number_of_license, short_name, note]
+    description: >-
+      License identification per file, stored in the SPDX schema (see the schema overview). Surfaced
+      through License Coverage, License Declared and License Count.
+  - name: badge
+    fields: [badge_level]
+    description: >-
+      Two distinct badge concepts share this space — the OpenSSF/CII Best Practices badge level read
+      as a risk metric, and the CHAOSS DEI Project Badging record written by POST /dei/repo/add.
+  - name: insight
+    description: Machine-generated summarizations over commits, issues and other data. Surfaced by Get Top Insights.
+relationships:
+  - from: repo_group
+    to: repository
+    type: has_many
+    via: repo_group_id
+    confidence: high
+    evidence: 'GET /repo-groups/:repo_group_id/repos; repository responses carry rg_name.'
+  - from: repository
+    to: repo_group
+    type: belongs_to
+    via: repo_group_id
+    confidence: high
+    evidence: 'collectoss db add-repos loads <git_repo_url>,<repo_group_id> pairs.'
+  - from: repository
+    to: issue
+    type: has_many
+    via: repo_id
+    confidence: high
+    evidence: 'GET /repos/:repo_id/issues-new, issues-closed, issue-backlog, issues-open-age.'
+  - from: repository
+    to: pull_request
+    type: has_many
+    via: repo_id
+    confidence: high
+    evidence: 'GET /repos/:repo_id/pull-request-acceptance-rate, reviews, review-duration.'
+  - from: repository
+    to: commit
+    type: has_many
+    via: repo_id
+    confidence: high
+    evidence: 'GET /repos/:repo_id/code-changes, code-changes-lines, committers.'
+  - from: repository
+    to: contributor
+    type: has_many
+    via: repo_id
+    confidence: high
+    evidence: 'GET /repos/:repo_id/contributors, contributors-new, top-committers.'
+  - from: repository
+    to: release
+    type: has_many
+    via: repo_id
+    confidence: medium
+    evidence: 'GET /repos/:repo_id/releases returns a count only, so the collection itself is not exposed.'
+  - from: repository
+    to: license_declaration
+    type: has_many
+    via: repo_id
+    confidence: medium
+    evidence: 'GET /repos/:repo_id/license-declared, license-coverage, license-count.'
+  - from: repository
+    to: badge
+    type: has_one
+    via: repo_id
+    confidence: medium
+    evidence: 'GET /repos/:repo_id/cii-best-practices-badge returns a single badge_level.'
+  - from: issue
+    to: contributor
+    type: has_many
+    via: participant
+    confidence: low
+    evidence: >-
+      'GET /repos/:repo_id/issue-participants' returns participation counts, not linked contributor
+      ids, so the join is asserted by the metric name rather than by a field in the response.
+  - from: repository
+    to: repository
+    type: has_many
+    via: sub-project
+    confidence: low
+    evidence: 'GET /repos/:repo_id/sub-projects exists but the response does not expose the child repo_id.'
+identifier_portability_warning: >-
+  repo_id, repo_group_id and issue_id are assigned by the local PostgreSQL instance. They are NOT
+  stable across CollectOSS deployments and must never be treated as global identifiers. The portable
+  keys are repo_git / url (the forge URL) and base64_url.
+render: null
+maintainers:
+  - FN: Kin Lane
+    email: info@apievangelist.com

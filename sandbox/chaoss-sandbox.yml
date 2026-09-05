@@ -1,0 +1,68 @@
+specification: API Commons Sandbox
+specificationVersion: '0.1'
+provider: CHAOSS
+providerId: chaoss
+api: CollectOSS REST API
+generated: '2026-09-05'
+modified: '2026-09-05'
+method: searched
+source: >-
+  https://docs.collectoss.org/en/latest/getting-started/sample-database.html (HTTP 200, fetched
+  2026-09-05) and
+  https://docs.collectoss.org/en/latest/getting-started/command-line-interface/backend.html.
+docs: https://docs.collectoss.org/en/latest/getting-started/sample-database.html
+description: >-
+  CHAOSS publishes no hosted sandbox — there is no test-mode API host, because there is no production
+  API host either. What it does publish is a genuine substitute: a container image of a PostgreSQL
+  database pre-loaded with real CollectOSS-collected data, plus a documented flag for running the API
+  server with collection turned off. Together these let a downstream project develop against a
+  structurally correct dataset without waiting on a full forge collection run.
+sandbox_type: fixture-dataset
+hosted_sandbox: false
+test_vs_live_keys: false
+test_key_prefix: null
+test_cards: null
+test_clocks: false
+fixtures:
+  - name: Sample collected data
+    kind: container image
+    image: ghcr.io/oss-aspen/sample-collected-data:latest
+    description: >-
+      A postgres container pre-loaded with data actually collected by CollectOSS. The docs name three
+      intended uses: running 8Knot, research in Jupyter notebooks, and building your own dashboard.
+    published_connection:
+      host: localhost
+      port: 5433
+      port_note: >-
+        Mapped from the container's 5432 so it does not clash with a local PostgreSQL. Values below
+        are the provider's own published sample credentials, verbatim from the documentation — they
+        are demo values for a local container, not secrets.
+      database: sample_collected_data
+      user: sample_user
+      password: sample_password
+      psql: 'psql -h localhost -p 5433 -U sample_user -d sample_collected_data'
+    schema_note: >-
+      Tables live in the `data` schema (renamed from `augur_data` in v1.1.0-RC1), so queries must be
+      qualified — data.repo, data.commits, data.pull_requests.
+    ownership_note: >-
+      The image is published under the oss-aspen organization (the 8Knot maintainers), not under
+      chaoss. It is documented by CHAOSS on the CollectOSS documentation site as the recommended
+      sample dataset, which is why it is recorded here, but the registry namespace is a third party's.
+collection_free_mode:
+  flag: --disable-collection
+  command: 'uv run collectoss backend start --disable-collection'
+  description: >-
+    Starts the CollectOSS API server with data collection switched off. The documentation names this
+    as the way to exercise the REST API without collection running — the closest thing CollectOSS has
+    to a test mode for the API itself.
+  source: https://docs.collectoss.org/en/latest/getting-started/command-line-interface/backend.html
+gaps:
+  - >-
+    The sample dataset gives you a database, not an API. To exercise the 137 REST operations you must
+    stand up a CollectOSS instance pointed at it; there is no ready-made API sandbox endpoint.
+  - >-
+    No test-mode credentials, no fixture triggers, and no time simulation. There is nothing to
+    simulate — the API is read-only apart from DEI badging.
+maintainers:
+  - FN: Kin Lane
+    email: info@apievangelist.com

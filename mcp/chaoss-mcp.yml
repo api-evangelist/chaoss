@@ -1,0 +1,103 @@
+specification: API Commons MCP
+specificationVersion: '0.1'
+provider: CHAOSS
+providerId: chaoss
+api: CollectOSS REST API
+generated: '2026-09-05'
+modified: '2026-09-05'
+method: derived
+status: candidate
+source: >-
+  Derived from operations in openapi/chaoss-collectoss-openapi.yml. SEARCHED FIRST, 2026-09-05:
+  the CHAOSS GitHub organization (repository and code search for "mcp" — no results), the CHAOSS
+  software page https://www.chaoss.community/software/, the CollectOSS documentation tree, and web
+  search. No CHAOSS-published MCP server exists, hosted or local.
+description: >-
+  CANDIDATE ONLY. CHAOSS does not ship an MCP server. This file records what a server over the
+  CollectOSS REST API would expose if someone built one, so the gap is visible and specific. Nothing
+  here is callable today and no endpoint is asserted.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: derived
+  note: >-
+    mode is `none` because no server exists to reach. Note also that even a future CollectOSS MCP
+    server could not be a single hosted endpoint the way a SaaS vendor's is: CollectOSS is
+    self-hosted, so every deployment would run its own server against its own instance and its own
+    repo_id space. `auth: unknown` follows from that — see authentication/chaoss-authentication.yml,
+    where the OAuth authorization server is the CollectOSS instance itself.
+search_evidence:
+  - url: https://api.github.com/search/repositories?q=org:chaoss+mcp
+    result: 0 repositories
+    checked: '2026-09-05'
+  - url: https://api.github.com/search/code?q=org:chaoss+mcp+in:path
+    result: 0 files
+    checked: '2026-09-05'
+  - url: https://www.chaoss.community/software/
+    status: 200
+    result: Names only CollectOSS and GrimoireLab. No MCP or agent surface mentioned.
+    checked: '2026-09-05'
+candidate_tools:
+  - name: list_repositories
+    rest: [Get All Repos]
+    source_operation: GET /repos
+    description: List every repository tracked by this CollectOSS instance.
+    caution: >-
+      No pagination exists on this operation (see conventions/chaoss-conventions.yml). On an instance
+      tracking tens of thousands of repositories this returns everything in one array, which is the
+      main reason a naive tool wrapper would be unusable.
+  - name: resolve_repository
+    rest: [Get Repo by Owner and Repo Name]
+    source_operation: GET /owner/:owner/repo/:repo
+    description: >-
+      Resolve a forge owner/name pair to this instance's local repo_id. Must be called first —
+      repo_id is instance-local and not portable.
+  - name: list_repo_groups
+    rest: [Get All Repo Groups]
+    source_operation: GET /repo-groups
+  - name: get_repository_evolution_metrics
+    rest: [Code Changes (Repo), Contributors (Repo), New Contributors (Repo), Issue Backlog (Repo), Issue Throughput (Repo), Reviews (Repo), Review Duration (Repo)]
+    description: CHAOSS Evolution focus-area metrics for one repository over a date window.
+    parameters: [repo_id, begin_date, end_date, period]
+  - name: get_repository_risk_metrics
+    rest: [License Coverage (Repo), License Declared (Repo), CII Best Practices Badge (Repo), Committers (Repo), Average Issue Resolution Time (Repo), Fork Count (Repo)]
+    description: CHAOSS Risk focus-area metrics for one repository.
+    parameters: [repo_id, begin_date, end_date]
+  - name: get_repository_value_metrics
+    rest: [Stars (Repo), Stars Count (Repo), Watchers (Repo), Watchers Count (Repo)]
+    description: CHAOSS Value focus-area metrics for one repository.
+    parameters: [repo_id]
+  - name: get_repository_complexity
+    rest: [Total Lines (repo), Total Files (repo), File Complexity (repo), Project Languages (repo), Total Comment Lines (repo), Total Blank Lines (repo)]
+    description: Source-code size, language and complexity profile for one repository.
+  - name: get_top_insights
+    rest: [Get Top Insights]
+    source_operation: 'GET /repo-groups/:repo_group_id/top-insights'
+    description: Machine-generated summarizations across a repo group.
+  - name: compare_repo_group
+    rest: [Aggregate Summary (Repo Group), Annual Commit Count Ranked by Repo in Repo Group (Repo Group), Top Committers (Repo Group)]
+    description: Cross-repository comparison inside one repo group.
+    caution: Every operation behind this tool is tagged `experimental` in the contract.
+excluded_from_candidate:
+  - tools: [DEI Badging Tracking, DEI Badging Report]
+    reason: >-
+      Both are writes with no reversal path (see conventions/chaoss-conventions.yml reversibility).
+      An agent that registers the wrong repository for badging cannot undo it through the API.
+  - tools: [Generate User Session Token, Refresh User Session Token]
+    reason: >-
+      Credential handling. Token refresh may irreversibly invalidate the current bearer AND refresh
+      token; this belongs in the client's transport layer, not in an agent-callable tool.
+  - tools: [the 12 /contributor_reports/ and /pull_request_reports/ visualizations]
+    reason: >-
+      Return rendered charts by default. They would need `return_json` forced on before they are
+      useful to an agent.
+coverage:
+  operations_in_contract: 137
+  operations_mapped_to_candidate_tools: 30
+  candidate_tools: 9
+maintainers:
+  - FN: Kin Lane
+    email: info@apievangelist.com

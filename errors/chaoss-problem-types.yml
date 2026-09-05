@@ -1,0 +1,136 @@
+specification: API Commons Error Catalog
+specificationVersion: '0.1'
+provider: CHAOSS
+providerId: chaoss
+api: CollectOSS REST API
+generated: '2026-09-05'
+modified: '2026-09-05'
+method: derived
+source: >-
+  Derived from every declared 4xx/5xx response and every status enum in
+  openapi/chaoss-collectoss-openapi.yml (CollectOSS REST API 0.60.0), cross-read against
+  https://docs.collectoss.org/en/latest/login.html. No separate error reference page is published by
+  CHAOSS; searched 2026-09-05 and none exists.
+format: bespoke
+problem_json: false
+description: >-
+  CollectOSS does not use RFC 9457 problem+json. It signals failure two ways, and the second is the
+  trap: a small number of operations return a real 400, but most failure modes are returned as
+  HTTP 200 with a `status` string in the body. An agent that branches on status code alone will
+  read "Invalid authorization code" as a success.
+envelope:
+  field: status
+  type: string
+  media_type: application/json
+  note: >-
+    There is no code, type, title, detail, instance or trace/request id field anywhere in the
+    contract. `status` is the entire error surface.
+declared_status_codes:
+  '200': 137
+  '400': 4
+  note: >-
+    137 operations declare a 200. Only the four POST operations declare anything else. No 401, 403,
+    404, 429 or 5xx response is declared on any operation in the contract, including the 133 GET
+    metric operations.
+problem_types:
+  - id: missing-argument
+    http_status: 400
+    envelope_value: Missing argument
+    title: Required query argument absent
+    operations:
+      - DEI Badging Tracking
+      - DEI Badging Report
+    remediation: >-
+      Supply every parameter the operation marks required — id, level and url for POST /dei/repo/add;
+      id for POST /dei/report.
+    retryable: false
+  - id: invalid-grant-type
+    http_status: 200
+    envelope_value: Invalid grant type
+    title: grant_type did not match the endpoint
+    operations:
+      - Generate User Session Token
+      - Refresh User Session Token
+    remediation: Send grant_type=code to /user/session/generate and grant_type=refresh_token to /user/session/refresh.
+    retryable: false
+  - id: invalid-authorization-code
+    http_status: 200
+    envelope_value: Invalid authorization code
+    title: Temporary authorization code rejected
+    operations:
+      - Generate User Session Token
+    remediation: >-
+      Restart the authorization flow. The docs state the temporary code is one-time use and "only
+      valid for a number of seconds"; it must be exchanged immediately on receipt and never stored.
+    retryable: false
+  - id: invalid-user
+    http_status: 200
+    envelope_value: Invalid user
+    title: No user associated with the request
+    operations:
+      - Generate User Session Token
+    remediation: The user must hold a registered account on the CollectOSS instance being called.
+    retryable: false
+  - id: invalid-refresh-token
+    http_status: 200
+    envelope_value: Invalid refresh token
+    title: Refresh token rejected
+    operations:
+      - Refresh User Session Token
+    remediation: >-
+      The refresh token has been rotated or invalidated. Re-run the full authorization code flow
+      with user intent.
+    retryable: false
+  - id: invalid-application
+    http_status: 200
+    envelope_value: Invalid application
+    title: Refresh token belongs to a different Client Application
+    operations:
+      - Refresh User Session Token
+    remediation: >-
+      Refresh tokens may only be used by the issuing application. Use the client secret of the
+      application the token was issued to.
+    retryable: false
+  - id: repo-already-exists
+    http_status: 200
+    envelope_value: Repo already exists
+    title: Repository already tracked for DEI badging
+    operations:
+      - DEI Badging Tracking
+    remediation: >-
+      Treat as success. This is the closest thing the API has to idempotent behaviour on a write, and
+      it is a body value rather than a status code.
+    retryable: false
+  - id: error-adding-repo
+    http_status: 200
+    envelope_value: Error adding repo
+    title: Repository could not be added for badging
+    operations:
+      - DEI Badging Tracking
+    remediation: >-
+      No cause is published. Verify the repo URL is a reachable forge URL and retry; escalate via
+      https://github.com/chaoss/CollectOSS/issues if it persists.
+    retryable: true
+  - id: invalid-id
+    http_status: 200
+    envelope_value: Invalid ID
+    title: Badging project id not recognised
+    operations:
+      - DEI Badging Report
+    remediation: >-
+      Confirm the source badging ID. On success this operation returns a binary PDF, so a JSON body
+      of any kind is itself the failure signal.
+    retryable: false
+undeclared_but_real:
+  - >-
+    Authentication failures on the four Authorization-bearing operations are not documented at all.
+    No 401 or 403 appears in the contract.
+  - >-
+    Nothing is declared for an unknown repo_id or repo_group_id on the 133 GET metric operations.
+counts:
+  problem_types: 9
+  declared_4xx_responses: 4
+  types_returned_as_http_200: 7
+maintainers:
+  - FN: Kin Lane
+    email: info@apievangelist.com

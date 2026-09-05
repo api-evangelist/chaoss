@@ -1,0 +1,31 @@
+specification: API Commons OAuth Scopes
+specificationVersion: '0.1'
+provider: CHAOSS
+providerId: chaoss
+api: CollectOSS REST API
+generated: '2026-09-05'
+modified: '2026-09-05'
+method: searched
+source: >-
+  https://docs.collectoss.org/en/latest/login.html and the published contract
+  openapi/chaoss-collectoss-openapi.yml, both read 2026-09-05.
+docs: https://docs.collectoss.org/en/latest/login.html
+description: >-
+  CollectOSS runs OAuth 2.0 authorization code but publishes NO scope vocabulary. This is a recorded
+  absence, not an unfinished probe.
+scope_count: 0
+scopes: []
+findings:
+  - >-
+    The OpenAPI declares no components.securitySchemes, so there is no `scopes` map to derive from.
+    derive-oauth-scopes.py returned "with oauth2: 0" against this repo for exactly that reason.
+  - >-
+    The authorization page is documented as showing the user "what information will be shared", but
+    no scope names, no permission reference page, and no per-operation scope requirements are
+    published anywhere in the CollectOSS documentation.
+  - >-
+    Consequence for an integrator: authorization is all-or-nothing per Client Application. An agent
+    cannot request least privilege because there is no privilege vocabulary to request from.
+maintainers:
+  - FN: Kin Lane
+    email: info@apievangelist.com

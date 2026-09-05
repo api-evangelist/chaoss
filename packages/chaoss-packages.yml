@@ -1,0 +1,233 @@
+specification: API Commons Packages
+specificationVersion: '0.1'
+provider: CHAOSS
+providerId: chaoss
+generated: '2026-09-05'
+modified: '2026-09-05'
+method: searched
+source: >-
+  PyPI JSON metadata endpoints (pypi.org/pypi/<pkg>/json) queried 2026-09-05, the GrimoireLab
+  component list at https://chaoss.github.io/grimoirelab/, the CHAOSS GitHub organization
+  (https://github.com/chaoss), and the GHCR anonymous tag list for ghcr.io/chaoss/collectoss.
+description: >-
+  First-party client and toolkit packages published by the CHAOSS project. CHAOSS does not ship
+  REST API client SDKs — its software IS the product, distributed as installable Python
+  distributions (the GrimoireLab toolchain) and as container images (CollectOSS). Every entry
+  below was read from the registry metadata endpoint on 2026-09-05; version and published carry
+  the registry's own latest-release values.
+notes:
+  - >-
+    Every GrimoireLab distribution declares Homepage https://chaoss.github.io/grimoirelab/ and is
+    GPL-3.0-or-later, which is what establishes first-party authorship — the packages are not
+    community re-publications.
+  - >-
+    CollectOSS has no PyPI distribution. Its README states it is "a Python project distributed via
+    container images"; the only published build artifact is the GHCR image.
+  - >-
+    NO `type: SDKs` pointer is emitted in apis.yml for this file, deliberately. Every package here is
+    a component of the GrimoireLab analytics toolchain or the CollectOSS server itself — none of them
+    is a client library for the CollectOSS REST API. There is no first-party SDK for that API in any
+    language, and claiming one would be a false credit.
+  - >-
+    Augur packages are deliberately absent. github.com/chaoss/augur was archived with the notice
+    "The Augur project is no longer part of CHAOSS. Use CollectOSS instead!"; the `augur` name on
+    PyPI (0.1, 2018-01-26) is an unrelated third-party package and must not be attributed to CHAOSS.
+packages:
+  - name: grimoirelab
+    registry: pypi
+    url: https://pypi.org/project/grimoirelab/
+    official: true
+    language: Python
+    license: GPL-3.0-or-later
+    version: 1.21.0
+    published: '2026-06-19'
+    repository: https://github.com/chaoss/grimoirelab
+    description: Umbrella distribution for the GrimoireLab software development analytics toolset.
+  - name: perceval
+    registry: pypi
+    url: https://pypi.org/project/perceval/
+    official: true
+    language: Python
+    license: GPL-3.0-or-later
+    version: 1.5.0
+    published: '2026-06-19'
+    repository: https://github.com/chaoss/grimoirelab-perceval
+    description: Data retrieval from 30+ software repository and community platforms.
+  - name: sortinghat
+    registry: pypi
+    url: https://pypi.org/project/sortinghat/
+    official: true
+    language: Python
+    license: GPL-3.0-or-later
+    version: 1.15.0
+    published: '2026-06-19'
+    repository: https://github.com/chaoss/grimoirelab-sortinghat
+    description: Contributor identity management and merging.
+  - name: grimoire-elk
+    registry: pypi
+    url: https://pypi.org/project/grimoire-elk/
+    official: true
+    language: Python
+    license: GPL-3.0-or-later
+    version: 1.8.0
+    published: '2026-06-19'
+    repository: https://github.com/chaoss/grimoirelab-elk
+    description: Processes and stores software development data into OpenSearch/Elasticsearch.
+  - name: sirmordred
+    registry: pypi
+    url: https://pypi.org/project/sirmordred/
+    official: true
+    language: Python
+    license: GPL-3.0-or-later
+    version: 1.2.11
+    published: '2026-06-19'
+    repository: https://github.com/chaoss/grimoirelab-sirmordred
+    description: Orchestrates the execution of GrimoireLab tools to produce a dashboard.
+  - name: graal
+    registry: pypi
+    url: https://pypi.org/project/graal/
+    official: true
+    language: Python
+    license: GPL-3.0-or-later
+    version: 1.2.9
+    published: '2026-06-19'
+    repository: https://github.com/chaoss/grimoirelab-graal
+    description: Generic source-code repository analyzer built on Perceval.
+  - name: cereslib
+    registry: pypi
+    url: https://pypi.org/project/cereslib/
+    official: true
+    language: Python
+    license: GPL-3.0-or-later
+    version: 1.1.9
+    published: '2026-06-19'
+    repository: https://github.com/chaoss/grimoirelab-cereslib
+    description: Unify, eventize and enrich information produced by Perceval.
+  - name: kidash
+    registry: pypi
+    url: https://pypi.org/project/kidash/
+    official: true
+    language: Python
+    license: GPL-3.0-or-later
+    version: 1.1.9
+    published: '2026-06-19'
+    repository: https://github.com/chaoss/grimoirelab-kidash
+    description: Manage Kibana/Kibiter dashboards from the command line.
+  - name: grimoirelab-toolkit
+    registry: pypi
+    url: https://pypi.org/project/grimoirelab-toolkit/
+    official: true
+    language: Python
+    license: GPL-3.0-or-later
+    version: 1.2.7
+    published: '2026-06-19'
+    repository: https://github.com/chaoss/grimoirelab-toolkit
+    description: Common functions shared across GrimoireLab projects.
+  - name: perceval-mozilla
+    registry: pypi
+    url: https://pypi.org/project/perceval-mozilla/
+    official: true
+    language: Python
+    license: GPL-3.0-or-later
+    version: 1.2.9
+    published: '2026-06-19'
+    repository: https://github.com/chaoss/grimoirelab-perceval-mozilla
+    description: Perceval backend bundle for the Mozilla ecosystem.
+  - name: perceval-opnfv
+    registry: pypi
+    url: https://pypi.org/project/perceval-opnfv/
+    official: true
+    language: Python
+    license: GPL-3.0-or-later
+    version: 1.1.9
+    published: '2026-06-19'
+    repository: https://github.com/chaoss/grimoirelab-perceval-opnfv
+    description: Perceval backend bundle for the OPNFV ecosystem.
+  - name: perceval-puppet
+    registry: pypi
+    url: https://pypi.org/project/perceval-puppet/
+    official: true
+    language: Python
+    license: GPL-3.0-or-later
+    version: 1.1.9
+    published: '2026-06-19'
+    repository: https://github.com/chaoss/grimoirelab-perceval-puppet
+    description: Perceval backend bundle for the Puppet, Inc. ecosystem.
+  - name: perceval-weblate
+    registry: pypi
+    url: https://pypi.org/project/perceval-weblate/
+    official: true
+    language: Python
+    license: GPL-3.0-or-later
+    version: 1.1.9
+    published: '2026-06-19'
+    repository: https://github.com/chaoss/grimoirelab-perceval-weblate
+    description: Perceval backend bundle for Weblate.
+  - name: grimoirelab-core
+    registry: pypi
+    url: https://pypi.org/project/grimoirelab-core/
+    official: true
+    language: Python
+    license: GPL-3.0-or-later
+    version: 0.1.0
+    published: '2025-10-16'
+    repository: https://github.com/chaoss/grimoirelab-core
+    description: >-
+      Core of the next-generation GrimoireLab. Pre-1.0 and last released 2025-10-16, well behind the
+      1.x toolchain refreshed 2026-06-19, although the repository itself was pushed 2026-09-02 — the
+      code is active, the published distribution is not.
+  - name: grimoirelab-chronicler
+    registry: pypi
+    url: https://pypi.org/project/grimoirelab-chronicler/
+    official: true
+    language: Python
+    license: GPL-3.0-or-later
+    version: 0.1.0
+    published: '2025-10-16'
+    repository: https://github.com/chaoss/grimoirelab-chronicler
+    description: Generator of GrimoireLab events from Perceval data. Pre-1.0, released alongside grimoirelab-core.
+  - name: kingarthur
+    registry: pypi
+    url: https://pypi.org/project/kingarthur/
+    official: true
+    language: Python
+    license: GPL-3.0-or-later
+    version: 0.2.5
+    published: '2022-11-07'
+    repository: https://github.com/chaoss/grimoirelab-kingarthur
+    description: >-
+      Distributed job queue platform for scheduling Perceval jobs. ABANDONMENT SIGNAL — last release
+      2022-11-07, nearly four years behind every other GrimoireLab distribution.
+  - name: collectoss
+    registry: container
+    url: https://github.com/chaoss/CollectOSS/pkgs/container/collectoss
+    image: ghcr.io/chaoss/collectoss
+    official: true
+    language: Python
+    license: MIT
+    version: v1.1.0-rc1
+    published: '2026-06-10'
+    repository: https://github.com/chaoss/CollectOSS
+    description: >-
+      CollectOSS server image — the distribution that serves the CollectOSS REST API. Read from the
+      anonymous GHCR tag list (devel-latest, latest, v1.0.0, v1.1.0-rc1) on 2026-09-05; the published
+      date is the v1.1.0-rc1 GitHub release date. The current stable tag is v1.0.0 (2026-05-05); the
+      newest published tag is a release candidate.
+  - name: collectoss
+    registry: pypi
+    url: null
+    official: false
+    version: null
+    published: null
+    note: >-
+      Checked 2026-09-05 — no `collectoss` distribution exists on PyPI. The README states CollectOSS
+      is distributed via container images, so this is a deliberate absence, not a gap.
+counts:
+  total: 18
+  official: 17
+  pypi: 16
+  container: 1
+  absent: 1
+maintainers:
+  - FN: Kin Lane
+    email: info@apievangelist.com

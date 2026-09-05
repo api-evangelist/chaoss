@@ -1,0 +1,35 @@
+specification: API Commons Agent Skills
+specificationVersion: '0.1'
+provider: CHAOSS
+providerId: chaoss
+api: CollectOSS REST API
+generated: '2026-09-05'
+modified: '2026-09-05'
+method: generated
+source: >-
+  Authored by API Evangelist against openapi/chaoss-collectoss-openapi.yml and the CollectOSS
+  documentation. SEARCHED FIRST 2026-09-05 — CHAOSS publishes no skills/, no AGENTS.md and no
+  llms.txt on any of its hosts, so none could be saved verbatim.
+description: >-
+  Packaged agent skills for the CollectOSS REST API. Every operationId referenced in these skills was
+  grepped from the published contract; none is invented. The skills lead with the two facts that
+  break naive agents on this API — instance-local identifiers, and failures returned as HTTP 200.
+prerequisite: >-
+  All three skills require the base URL of a specific self-hosted CollectOSS deployment. CHAOSS
+  operates no public instance, so there is no default host to fall back on.
+skills:
+  - name: chaoss-collectoss-authenticate
+    file: chaoss-collectoss-authenticate.md
+    description: OAuth 2.0 authorization code flow against a CollectOSS instance, including the destructive refresh.
+    operations: 2
+  - name: chaoss-collectoss-assess-repository-health
+    file: chaoss-collectoss-assess-repository-health.md
+    description: CHAOSS Evolution, Risk and Value profile for a single repository.
+    operations: 23
+  - name: chaoss-collectoss-compare-repo-group
+    file: chaoss-collectoss-compare-repo-group.md
+    description: Portfolio comparison across the repositories in one repo group.
+    operations: 15
+maintainers:
+  - FN: Kin Lane
+    email: info@apievangelist.com

@@ -1,0 +1,194 @@
+specification: API Commons Conventions
+specificationVersion: '0.1'
+provider: CHAOSS
+providerId: chaoss
+api: CollectOSS REST API
+generated: '2026-09-05'
+modified: '2026-09-05'
+method: derived
+source: >-
+  Derived from a full parameter and response census of openapi/chaoss-collectoss-openapi.yml
+  (CollectOSS REST API 0.60.0, 137 operations) and read against
+  https://docs.collectoss.org/en/latest/login.html and the CollectOSS documentation tree, 2026-09-05.
+description: >-
+  Cross-cutting runtime semantics for the CollectOSS REST API — what an agent has to know before it
+  calls anything. The API is overwhelmingly read-only (133 GET, 4 POST) and predates most of the
+  conventions this document looks for; the honest finding in most sections below is an absence.
+auth:
+  style: 'OAuth 2.0 authorization code; composite Authorization header'
+  header: 'Authorization: Client [Client Secret], Bearer [User Session Token]'
+  detail: See authentication/chaoss-authentication.yml
+  spec_declares_it: false
+pagination:
+  style: none
+  params: []
+  response_fields: []
+  detail: >-
+    No pagination exists on any of the 137 operations. GET /repos and GET /repo-groups return the
+    full collection as a bare JSON array. On an instance tracking tens of thousands of repositories —
+    which the CHAOSS software page names as a design goal — an agent has no way to page, cap or
+    stream the response, and the only defence is a client-side size limit.
+filtering:
+  supported: true
+  params:
+    - name: begin_date
+      note: Window start, present on 50 operations.
+    - name: end_date
+      note: Window end, present on 62 operations.
+    - name: start_date
+      note: Alternate window start on 12 operations — the API uses two different names for the same idea.
+    - name: period
+      note: Bucket granularity on 30 operations (e.g. day/week/month/year).
+    - name: group_by
+      note: Grouping dimension on 6 operations.
+    - name: threshold
+    - name: remove_outliers
+    - name: required_contributions
+    - name: required_time
+  detail: >-
+    Time windowing is the only general filter. There is no field-selection, sparse-fieldset or
+    expansion mechanism anywhere in the contract.
+response_shaping:
+  param: return_json
+  operations: 12
+  detail: >-
+    The 12 visualization operations under /contributor_reports/ and /pull_request_reports/ take a
+    `return_json` toggle; by default they return a rendered chart rather than data. An agent should
+    always send return_json.
+identifiers:
+  primary: repo_id (68 operations), repo_group_id (54 operations)
+  alternates: 'owner/repo pair, rg_name + repo_name, base64_url'
+  prefixes: none
+  detail: >-
+    Identifiers are bare integers assigned by the local instance. They are NOT portable — repo_id 21996
+    on one CollectOSS deployment is a different repository on another. Resolve by
+    GET /owner/:owner/repo/:repo before caching an id.
+metadata:
+  supported: false
+  detail: No customer-supplied metadata or tag fields on any resource.
+request_id_tracing:
+  supported: false
+  header: null
+  detail: >-
+    No request-id, correlation-id or trace header is declared or documented. There is nothing to quote
+    in a support ticket.
+versioning:
+  style: path
+  value: /api/unstable/
+  detail: See lifecycle/chaoss-lifecycle.yml. The path segment says "unstable" and means it.
+error_envelope:
+  format: bespoke
+  field: status
+  problem_json: false
+  detail: >-
+    See errors/chaoss-problem-types.yml. CRITICAL: seven of the nine catalogued failure modes are
+    returned as HTTP 200 with a `status` string in the body. Branching on the status code alone will
+    read authentication failure as success.
+rate_limit_signaling:
+  headers: []
+  status_on_exhaustion: null
+  detail: >-
+    No rate-limit headers and no 429 response are declared or documented. See
+    rate-limits/chaoss-rate-limits.yml.
+idempotency:
+  supported: false
+  coverage: none
+  header: null
+  scope: []
+  retention: null
+  detail: >-
+    No Idempotency-Key header, no replay-protection mechanism, no documented retention window. Of the
+    four write operations, only POST /dei/repo/add has anything resembling replay behaviour: a repeat
+    call returns the body value "Repo already exists" rather than duplicating the row — but that is an
+    observed response enum in the contract, not a documented idempotency guarantee, and it is
+    signalled inside an HTTP 200. The two token endpoints are explicitly NOT replay-safe: the docs
+    state a temporary authorization code is one-time use, and that refreshing may invalidate both the
+    previous bearer token and the previous refresh token.
+dry_run_mode:
+  supported: false
+  detail: No preview, validate-only or dry-run parameter on any operation.
+reversibility:
+  grade: none
+  write_surface_present: true
+  write_operations: 4
+  detail: >-
+    The API publishes no reversal path for any of its writes. POST /dei/repo/add starts DEI badging
+    tracking for a repository and there is no documented remove, cancel, stop or untrack operation —
+    not in the contract, and not in the CollectOSS documentation. An agent that adds the wrong
+    repository cannot undo it through the API; the only recourse is instance-level database or CLI
+    intervention by the operator.
+  surfaces:
+    - operation: DEI Badging Tracking
+      operation_id: DEI Badging Tracking
+      path: POST /dei/repo/add
+      effect: Registers a repository for DEI badging and starts collection against it.
+      reversal_operation: null
+      window: null
+      note: >-
+        No reversal operation exists. No window is asserted here because none is published — see the
+        no-fabrication rule; an invented undo window on a write is worse than a recorded absence.
+    - operation: DEI Badging Report
+      operation_id: DEI Badging Report
+      path: POST /dei/report
+      effect: Generates and returns a badging report PDF. Read-shaped despite the POST verb.
+      reversal_operation: null
+      window: null
+      note: Nothing to reverse — the call produces a document, it does not mutate tracked state.
+    - operation: Generate User Session Token
+      operation_id: Generate User Session Token
+      path: POST /user/session/generate
+      effect: Exchanges a one-time authorization code for a bearer and refresh token.
+      reversal_operation: null
+      window: null
+      note: >-
+        No revoke endpoint is published. There is no way to invalidate an issued token through the API;
+        RFC 7009 token revocation is not implemented.
+    - operation: Refresh User Session Token
+      operation_id: Refresh User Session Token
+      path: POST /user/session/refresh
+      effect: Rotates the bearer token and may invalidate the previous bearer and refresh token.
+      reversal_operation: null
+      window: null
+      note: >-
+        Destructive and irreversible by design — once rotated, the docs state the previous tokens
+        "may not be the same" and the old pair is invalid. A client that loses the response has lost
+        the session.
+contract_quality_notes:
+  - >-
+    Path templating is Flask-style, not OpenAPI-style. 249 path parameters are written as
+    `/repos/:repo_id` rather than `/repos/{repo_id}`, so no OpenAPI tool will bind them. Every code
+    generator will emit a literal `:repo_id` segment.
+  - >-
+    Response bodies use the Swagger 2.0 `responses.<code>.schema` key rather than the OpenAPI 3
+    `responses.<code>.content.<media-type>.schema`, even though the document declares
+    `openapi: 3.1.0`. Strict OpenAPI 3 tooling reads every operation as returning no body.
+  - >-
+    `host: example.com` and `basePath: /api/unstable/` are Swagger 2.0 keys and carry no meaning in
+    OpenAPI 3. There is no `servers[]` block, so the document names no callable host at all.
+  - >-
+    Twelve operations are mounted under a prefix that contradicts their own path parameter — eleven
+    repository-scoped metrics live under /repo-groups/:repo_id/ (languages, license-count,
+    open-issues-count, abandoned-issues, issue-duration, pull-requests-new, lines-changed-by-author
+    and the four annual-count rankings) and GET /repos/:repo_group_id/releases inverts it the other
+    way. An agent routing on the path prefix will send the wrong identifier.
+  - >-
+    Three operationIds are duplicated across 137 operations (134 unique): "Number of Releases (Repo)",
+    "Open Issues Count (Repo Group)" and "New Contributor Counts Stacked Bar Chart (shows actions)".
+    operationId is required to be unique, so any tool keyed on it silently loses three operations.
+  - >-
+    Date and period parameters are declared `in: path` when they are plainly query parameters. On
+    GET /repos/:repo_id/code-changes, all four of repo_id, period, begin_date and end_date are typed
+    as path parameters, but only repo_id appears in the path template. A generator following the
+    contract literally will build an unusable URL.
+  - >-
+    operationIds are human sentences with spaces and parentheses ("Average Issue Resolution Time
+    (Repo Group)"), not identifiers. Most generators will mangle them.
+cross_references:
+  authentication: authentication/chaoss-authentication.yml
+  errors: errors/chaoss-problem-types.yml
+  lifecycle: lifecycle/chaoss-lifecycle.yml
+  rate_limits: rate-limits/chaoss-rate-limits.yml
+  conformance: conformance/chaoss-conformance.yml
+maintainers:
+  - FN: Kin Lane
+    email: info@apievangelist.com

@@ -1,0 +1,120 @@
+specification: API Commons CLI
+specificationVersion: '0.1'
+provider: CHAOSS
+providerId: chaoss
+generated: '2026-09-05'
+modified: '2026-09-05'
+method: searched
+source: >-
+  https://docs.collectoss.org/en/latest/getting-started/command-line-interface/toc.html and its
+  db.html, backend.html and configure.html subpages, plus
+  https://docs.collectoss.org/en/latest/development-guide/cli.html — all fetched 2026-09-05 (HTTP 200).
+docs: https://docs.collectoss.org/en/latest/getting-started/command-line-interface/toc.html
+name: collectoss
+description: >-
+  CollectOSS ships a first-party operator CLI. It is an INSTANCE-ADMINISTRATION tool, not an API
+  client: it starts and stops the API server, loads repositories to collect, and writes the config
+  file. There is no CLI command that calls a CollectOSS REST endpoint.
+official: true
+audience: instance operator
+invocation: 'uv run collectoss <group> <command> [options]'
+install:
+  - method: container
+    detail: The CLI ships inside the CollectOSS container image, ghcr.io/chaoss/collectoss.
+  - method: source
+    detail: >-
+      Clone https://github.com/chaoss/collectoss and run under uv in a virtual environment. Several
+      commands (backend stop, backend kill, backend processes) are documented as only working inside
+      a virtual environment.
+  - method: pypi
+    detail: None. CollectOSS has no PyPI distribution; see packages/chaoss-packages.yml.
+groups:
+  - name: db
+    description: Interacting with the CollectOSS PostgreSQL database.
+    commands:
+      - name: add-repo-groups
+        description: >-
+          Create repo groups from a headerless CSV of <repo_group_id>,<repo_group_name> pairs.
+        args: [path-to-csv]
+      - name: get-repo-groups
+        description: Print the ID, name and description of every repo group in the database.
+      - name: add-repos
+        description: >-
+          Load repositories from a headerless CSV of <git_repo_url>,<repo_group_id> pairs into an
+          existing repo group.
+        args: [path-to-csv]
+  - name: backend
+    description: Controls the CollectOSS API server and the data-collection workers.
+    commands:
+      - name: start
+        description: >-
+          Starts the API server and, optionally, the collection workers. Runs indefinitely.
+        flags:
+          - flag: --disable-collection
+            description: >-
+              Turns data collection off. The docs name this as the way to exercise the REST API
+              without collection running — the closest thing CollectOSS has to a test mode.
+          - flag: --skip-cleanup
+            description: Disables the stale-process cleanup that runs before startup.
+          - flag: --disable-housekeeper
+            description: Starts the server without the housekeeper.
+      - name: stop
+        description: Gracefully stops all running backend processes and workers. Virtual environment only.
+      - name: kill
+        description: SIGKILLs all running backend processes. Documented as a last resort when stop fails.
+      - name: processes
+        description: Prints the PID of every running backend process.
+  - name: config
+    description: Creates and manages the CollectOSS configuration file.
+    commands:
+      - name: init
+        description: >-
+          Writes a config file (default name augur.config.json, default location $HOME/.collectoss/)
+          from flags or environment variables.
+        flags:
+          - flag: --db_name
+            env: COLLECTOSS_DB_NAME
+            default: augur
+          - flag: --db_host
+            env: COLLECTOSS_DB_HOST
+            default: localhost
+          - flag: --db_user
+            env: COLLECTOSS_DB_USER
+            default: augur
+          - flag: --db_port
+            env: COLLECTOSS_DB_PORT
+            default: '5432'
+          - flag: --db_password
+            env: COLLECTOSS_DB_PASSWORD
+          - flag: --github_api_key
+            env: COLLECTOSS_GITHUB_API_KEY
+          - flag: --facade_repo_directory
+            env: COLLECTOSS_FACADE_REPO_DIRECTORY
+            default: repos/
+          - flag: --rc-config-file
+            description: Path to an existing config file to use as defaults. No environment variable.
+          - flag: --write-to-src
+            description: Developer-only. Writes the config into the source tree instead of $HOME.
+  - name: logging
+    description: >-
+      Log management. Listed in the CLI overview and in `collectoss logging --help`; no per-command
+      reference page is published, so no commands are enumerated here.
+  - name: util
+    description: >-
+      Utility commands. Named in the CLI overview ("the list command under collectoss util") but the
+      published command-line-interface table of contents links only db, backend and config, so the
+      util surface is undocumented.
+discovery: 'collectoss --help, collectoss db --help, collectoss backend --help, collectoss config --help, collectoss logging --help'
+observations:
+  - >-
+    Augur naming survives inside the CLI: the default database name and user are both `augur`, and
+    the generated config file is still called augur.config.json, even though the environment
+    variables were renamed to COLLECTOSS_*. An operator migrating from Augur will find the rename is
+    cosmetic at this layer.
+  - >-
+    The configure.html example passes secrets as literal command-line arguments
+    (--db_password "password", --github_api_key "github_api_key"), which puts credentials in shell
+    history. The environment-variable form on the same page is the safe one.
+maintainers:
+  - FN: Kin Lane
+    email: info@apievangelist.com

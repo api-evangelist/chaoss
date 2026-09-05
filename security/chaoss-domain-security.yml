@@ -1,34 +1,30 @@
-generated: '2026-07-11'
+generated: '2026-09-05'
 method: probed
 source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
 hosts:
 - host: chaoss.community
   https: true
   tls_version: TLSv1.3
-  cert_expires: Oct  4 15:50:42 2026 GMT
+  cert_expires: Dec  4 06:35:39 2026 GMT
   hsts: false
-- host: oss-augur.readthedocs.io
+- host: docs.collectoss.org
   https: true
   tls_version: TLSv1.3
-  cert_expires: Aug 27 13:13:23 2026 GMT
-  hsts: true
-  hsts_max_age: 31536000
-- host: ai.chaoss.io
-  https: false
+  cert_expires: Oct 22 12:59:38 2026 GMT
+  hsts: false
+- host: www.chaoss.community
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Dec  3 15:44:43 2026 GMT
+  hsts: false
 domains:
 - domain: chaoss.community
   dnssec: false
   caa: []
   spf: true
   dmarc: false
-- domain: readthedocs.io
+- domain: collectoss.org
   dnssec: false
-  caa:
-  - 0 issue "letsencrypt.org"
-  - 0 issue "pki.goog; cansignhttpexchanges=yes"
-  - 0 issue "ssl.com"
-  - 0 issuewild "amazonaws.com"
-  - 0 issuewild "comodoca.com"
-  - 0 issuewild "digicert.com; cansignhttpexchanges=yes"
+  caa: []
   spf: false
   dmarc: false
