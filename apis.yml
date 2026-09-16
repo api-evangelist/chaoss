@@ -69,110 +69,281 @@ url: >-
   https://raw.githubusercontent.com/api-evangelist/chaoss/refs/heads/main/apis.yml
 specificationVersion: '0.23'
 apis:
-  - aid: chaoss:collectoss-api
-    name: CollectOSS REST API
-    description: >-
-      CollectOSS (pronounced "collect us") is the CHAOSS reference data
-      collection and storage tool for open source community health. It
-      harvests data from GitHub and GitLab forges into a PostgreSQL
-      schema and exposes a Flask/Gunicorn REST API of 137 operations
-      that return CHAOSS-aligned metrics grouped by the CHAOSS focus
-      areas — evolution, risk, value, complexity, experimental — plus
-      utility, visualization, DEI Badging and OAuth login endpoints. It
-      is the successor to Augur, which left the CHAOSS project in March
-      2026; CollectOSS is self-hosted, so each deployment serves the API
-      from its own host under /api/unstable/.
-    humanURL: https://docs.collectoss.org/en/latest/
-    baseURL: https://collectoss.example.com/api/unstable
-    tags:
-      - CHAOSS Metrics
-      - CollectOSS
-      - Community Health
-      - Metrics
-      - REST
-      - Self-Hosted
-    properties:
-      - type: OpenAPI
-        url: openapi/chaoss-collectoss-openapi.yml
-      - type: Overlay
-        url: overlays/chaoss-collectoss-overlay.yaml
-      - type: Documentation
-        url: https://docs.collectoss.org/en/latest/
-      - type: APIReference
-        url: https://docs.collectoss.org/en/latest/rest-api/api.html
-      - type: GitHubRepository
-        url: https://github.com/chaoss/CollectOSS
-      - type: Authentication
-        url: authentication/chaoss-authentication.yml
-      - type: ErrorCatalog
-        url: errors/chaoss-problem-types.yml
-      - type: DataModel
-        url: data-model/chaoss-data-model.yml
-      - type: X-MCPServerCandidate
-        url: mcp/chaoss-mcp.yml
-      - type: AgentSkill
-        url: skills/_index.yml
-  - aid: chaoss:metrics-catalog
-    name: CHAOSS Metrics Catalog
-    description: >-
-      The CHAOSS Metrics catalog is a community-maintained, structured
-      reference of community-health metrics organized into focus areas
-      (Common, DEI, Risk, Value, Evolution) plus metrics models that
-      compose them. The catalog is openly licensed and published on the
-      CHAOSS website. The chaoss/metrics repository was archived and the
-      working groups now maintain the definitions; the catalog is
-      consumed by CollectOSS, GrimoireLab and third-party
-      implementations.
-    humanURL: https://www.chaoss.community/kb-metrics-and-metrics-models/
-    tags:
-      - Catalog
-      - Documentation
-      - Metrics
-      - Models
-    properties:
-      - type: Documentation
-        url: https://chaoss.community/kbtopic/all-metrics/
-      - type: GitHubRepository
-        url: https://github.com/chaoss/wg-metrics-models
-      - type: GitHubRepository
-        url: https://github.com/chaoss/community
-  - aid: chaoss:grimoirelab
-    name: CHAOSS GrimoireLab
-    description: >-
-      GrimoireLab is an open source platform for software development
-      analytics. It pulls data from 30+ data sources (Git, GitHub,
-      GitLab, mailing lists, IRC, Slack, Jira, Bugzilla, etc.) and
-      provides a Python toolkit (Perceval, Sortinghat, GrimoireELK) plus
-      a Kibana-based dashboard, exposing CHAOSS metrics for community
-      health analysis.
-    humanURL: https://chaoss.github.io/grimoirelab/
-    tags:
-      - Analytics
-      - Data Pipeline
-      - GrimoireLab
-      - Kibana
-      - Metrics
-    properties:
-      - type: Documentation
-        url: https://chaoss.github.io/grimoirelab/
-      - type: GitHubRepository
-        url: https://github.com/chaoss/grimoirelab
-  - aid: chaoss:8knot
-    name: CHAOSS 8Knot Dashboard
-    description: >-
-      8Knot is an open source community analytics dashboard built on top
-      of Augur that provides ready-made visualizations of CHAOSS metrics
-      for stakeholders evaluating open source project health.
-    humanURL: https://github.com/oss-aspen/8knot
-    tags:
-      - Dashboard
-      - Visualization
-    properties:
-      - type: Documentation
-        url: https://github.com/oss-aspen/8knot
-      - type: GitHubRepository
-        url: https://github.com/oss-aspen/8knot
+- aid: chaoss:metrics-catalog
+  name: CHAOSS Metrics Catalog
+  description: >-
+    The CHAOSS Metrics catalog is a community-maintained, structured reference of community-health metrics
+    organized into focus areas (Common, DEI, Risk, Value, Evolution) plus metrics models that compose
+    them. The catalog is openly licensed and published on the CHAOSS website. The chaoss/metrics repository
+    was archived and the working groups now maintain the definitions; the catalog is consumed by CollectOSS,
+    GrimoireLab and third-party implementations.
+  humanURL: https://www.chaoss.community/kb-metrics-and-metrics-models/
+  tags:
+  - Catalog
+  - Documentation
+  - Metrics
+  - Models
+  properties:
+  - type: Documentation
+    url: https://chaoss.community/kbtopic/all-metrics/
+  - type: GitHubRepository
+    url: https://github.com/chaoss/wg-metrics-models
+  - type: GitHubRepository
+    url: https://github.com/chaoss/community
+- aid: chaoss:grimoirelab
+  name: CHAOSS GrimoireLab
+  description: >-
+    GrimoireLab is an open source platform for software development analytics. It pulls data from 30+
+    data sources (Git, GitHub, GitLab, mailing lists, IRC, Slack, Jira, Bugzilla, etc.) and provides a
+    Python toolkit (Perceval, Sortinghat, GrimoireELK) plus a Kibana-based dashboard, exposing CHAOSS
+    metrics for community health analysis.
+  humanURL: https://chaoss.github.io/grimoirelab/
+  tags:
+  - Analytics
+  - Data Pipeline
+  - GrimoireLab
+  - Kibana
+  - Metrics
+  properties:
+  - type: Documentation
+    url: https://chaoss.github.io/grimoirelab/
+  - type: GitHubRepository
+    url: https://github.com/chaoss/grimoirelab
+- aid: chaoss:8knot
+  name: CHAOSS 8Knot Dashboard
+  description: >-
+    8Knot is an open source community analytics dashboard built on top of Augur that provides ready-made
+    visualizations of CHAOSS metrics for stakeholders evaluating open source project health.
+  humanURL: https://github.com/oss-aspen/8knot
+  tags:
+  - Dashboard
+  - Visualization
+  properties:
+  - type: Documentation
+    url: https://github.com/oss-aspen/8knot
+  - type: GitHubRepository
+    url: https://github.com/oss-aspen/8knot
+- aid: chaoss:chaoss-complexity-api
+  name: CHAOSS Complexity API
+  description: The complexity API from CHAOSS — 6 operation(s) for complexity.
+  humanURL: https://docs.collectoss.org/en/latest/
+  baseURL: https://collectoss.example.com/api/unstable
+  tags:
+  - complexity
+  properties:
+  - type: OpenAPI
+    url: openapi/chaoss-complexity-api-openapi.yml
+  - type: Documentation
+    url: https://docs.collectoss.org/en/latest/
+  - type: APIReference
+    url: https://docs.collectoss.org/en/latest/rest-api/api.html
+  - type: GitHubRepository
+    url: https://github.com/chaoss/CollectOSS
+  - type: Authentication
+    url: authentication/chaoss-authentication.yml
+  - type: ErrorCatalog
+    url: errors/chaoss-problem-types.yml
+  - type: DataModel
+    url: data-model/chaoss-data-model.yml
+  - type: X-MCPServerCandidate
+    url: mcp/chaoss-mcp.yml
+- aid: chaoss:chaoss-dei-badging-api
+  name: CHAOSS DEI Badging API
+  description: The DEI Badging API from CHAOSS — 2 operation(s) for dei badging.
+  humanURL: https://docs.collectoss.org/en/latest/
+  baseURL: https://collectoss.example.com/api/unstable
+  tags:
+  - DEI Badging
+  properties:
+  - type: OpenAPI
+    url: openapi/chaoss-dei-badging-api-openapi.yml
+  - type: Documentation
+    url: https://docs.collectoss.org/en/latest/
+  - type: APIReference
+    url: https://docs.collectoss.org/en/latest/rest-api/api.html
+  - type: GitHubRepository
+    url: https://github.com/chaoss/CollectOSS
+  - type: Authentication
+    url: authentication/chaoss-authentication.yml
+  - type: ErrorCatalog
+    url: errors/chaoss-problem-types.yml
+  - type: DataModel
+    url: data-model/chaoss-data-model.yml
+  - type: X-MCPServerCandidate
+    url: mcp/chaoss-mcp.yml
+- aid: chaoss:chaoss-evolution-api
+  name: CHAOSS Evolution API
+  description: The evolution API from CHAOSS — 52 operation(s) for evolution.
+  humanURL: https://docs.collectoss.org/en/latest/
+  baseURL: https://collectoss.example.com/api/unstable
+  tags:
+  - evolution
+  properties:
+  - type: OpenAPI
+    url: openapi/chaoss-evolution-api-openapi.yml
+  - type: Documentation
+    url: https://docs.collectoss.org/en/latest/
+  - type: APIReference
+    url: https://docs.collectoss.org/en/latest/rest-api/api.html
+  - type: GitHubRepository
+    url: https://github.com/chaoss/CollectOSS
+  - type: Authentication
+    url: authentication/chaoss-authentication.yml
+  - type: ErrorCatalog
+    url: errors/chaoss-problem-types.yml
+  - type: DataModel
+    url: data-model/chaoss-data-model.yml
+  - type: X-MCPServerCandidate
+    url: mcp/chaoss-mcp.yml
+- aid: chaoss:chaoss-experimental-api
+  name: CHAOSS Experimental API
+  description: The experimental API from CHAOSS — 26 operation(s) for experimental.
+  humanURL: https://docs.collectoss.org/en/latest/
+  baseURL: https://collectoss.example.com/api/unstable
+  tags:
+  - experimental
+  properties:
+  - type: OpenAPI
+    url: openapi/chaoss-experimental-api-openapi.yml
+  - type: Documentation
+    url: https://docs.collectoss.org/en/latest/
+  - type: APIReference
+    url: https://docs.collectoss.org/en/latest/rest-api/api.html
+  - type: GitHubRepository
+    url: https://github.com/chaoss/CollectOSS
+  - type: Authentication
+    url: authentication/chaoss-authentication.yml
+  - type: ErrorCatalog
+    url: errors/chaoss-problem-types.yml
+  - type: DataModel
+    url: data-model/chaoss-data-model.yml
+  - type: X-MCPServerCandidate
+    url: mcp/chaoss-mcp.yml
+- aid: chaoss:chaoss-login-api
+  name: CHAOSS Login API
+  description: The login API from CHAOSS — 2 operation(s) for login.
+  humanURL: https://docs.collectoss.org/en/latest/
+  baseURL: https://collectoss.example.com/api/unstable
+  tags:
+  - login
+  properties:
+  - type: OpenAPI
+    url: openapi/chaoss-login-api-openapi.yml
+  - type: Documentation
+    url: https://docs.collectoss.org/en/latest/
+  - type: APIReference
+    url: https://docs.collectoss.org/en/latest/rest-api/api.html
+  - type: GitHubRepository
+    url: https://github.com/chaoss/CollectOSS
+  - type: Authentication
+    url: authentication/chaoss-authentication.yml
+  - type: ErrorCatalog
+    url: errors/chaoss-problem-types.yml
+  - type: DataModel
+    url: data-model/chaoss-data-model.yml
+  - type: X-MCPServerCandidate
+    url: mcp/chaoss-mcp.yml
+- aid: chaoss:chaoss-risk-api
+  name: CHAOSS Risk API
+  description: The risk API from CHAOSS — 21 operation(s) for risk.
+  humanURL: https://docs.collectoss.org/en/latest/
+  baseURL: https://collectoss.example.com/api/unstable
+  tags:
+  - risk
+  properties:
+  - type: OpenAPI
+    url: openapi/chaoss-risk-api-openapi.yml
+  - type: Documentation
+    url: https://docs.collectoss.org/en/latest/
+  - type: APIReference
+    url: https://docs.collectoss.org/en/latest/rest-api/api.html
+  - type: GitHubRepository
+    url: https://github.com/chaoss/CollectOSS
+  - type: Authentication
+    url: authentication/chaoss-authentication.yml
+  - type: ErrorCatalog
+    url: errors/chaoss-problem-types.yml
+  - type: DataModel
+    url: data-model/chaoss-data-model.yml
+  - type: X-MCPServerCandidate
+    url: mcp/chaoss-mcp.yml
+- aid: chaoss:chaoss-utility-api
+  name: CHAOSS Utility API
+  description: The utility API from CHAOSS — 8 operation(s) for utility.
+  humanURL: https://docs.collectoss.org/en/latest/
+  baseURL: https://collectoss.example.com/api/unstable
+  tags:
+  - utility
+  properties:
+  - type: OpenAPI
+    url: openapi/chaoss-utility-api-openapi.yml
+  - type: Documentation
+    url: https://docs.collectoss.org/en/latest/
+  - type: APIReference
+    url: https://docs.collectoss.org/en/latest/rest-api/api.html
+  - type: GitHubRepository
+    url: https://github.com/chaoss/CollectOSS
+  - type: Authentication
+    url: authentication/chaoss-authentication.yml
+  - type: ErrorCatalog
+    url: errors/chaoss-problem-types.yml
+  - type: DataModel
+    url: data-model/chaoss-data-model.yml
+  - type: X-MCPServerCandidate
+    url: mcp/chaoss-mcp.yml
+- aid: chaoss:chaoss-value-api
+  name: CHAOSS Value API
+  description: The value API from CHAOSS — 8 operation(s) for value.
+  humanURL: https://docs.collectoss.org/en/latest/
+  baseURL: https://collectoss.example.com/api/unstable
+  tags:
+  - value
+  properties:
+  - type: OpenAPI
+    url: openapi/chaoss-value-api-openapi.yml
+  - type: Documentation
+    url: https://docs.collectoss.org/en/latest/
+  - type: APIReference
+    url: https://docs.collectoss.org/en/latest/rest-api/api.html
+  - type: GitHubRepository
+    url: https://github.com/chaoss/CollectOSS
+  - type: Authentication
+    url: authentication/chaoss-authentication.yml
+  - type: ErrorCatalog
+    url: errors/chaoss-problem-types.yml
+  - type: DataModel
+    url: data-model/chaoss-data-model.yml
+  - type: X-MCPServerCandidate
+    url: mcp/chaoss-mcp.yml
+- aid: chaoss:chaoss-visualizations-api
+  name: CHAOSS Visualizations API
+  description: The visualizations API from CHAOSS — 12 operation(s) for visualizations.
+  humanURL: https://docs.collectoss.org/en/latest/
+  baseURL: https://collectoss.example.com/api/unstable
+  tags:
+  - visualizations
+  properties:
+  - type: OpenAPI
+    url: openapi/chaoss-visualizations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.collectoss.org/en/latest/
+  - type: APIReference
+    url: https://docs.collectoss.org/en/latest/rest-api/api.html
+  - type: GitHubRepository
+    url: https://github.com/chaoss/CollectOSS
+  - type: Authentication
+    url: authentication/chaoss-authentication.yml
+  - type: ErrorCatalog
+    url: errors/chaoss-problem-types.yml
+  - type: DataModel
+    url: data-model/chaoss-data-model.yml
+  - type: X-MCPServerCandidate
+    url: mcp/chaoss-mcp.yml
 common:
+  - type: Overlay
+    url: overlays/chaoss-collectoss-overlay.yaml
+  - type: AgentSkill
+    url: skills/_index.yml
   - type: IssueTracker
     url: https://github.com/chaoss/CollectOSS/issues
   - type: CodeOfConduct
