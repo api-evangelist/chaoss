@@ -50,7 +50,7 @@ tags:
   - Linux Foundation
   - Metrics
   - Observability
-  - Open-Source
+  - Open Source
   - Risk
   - Sustainability
 tags_raw:
@@ -63,6 +63,7 @@ tags_raw:
   - Open Source
   - Risk
   - Sustainability
+  - Open-Source
 created: '2026-03-16'
 modified: '2026-09-05'
 url: >-
@@ -447,7 +448,7 @@ common:
       - name: Practitioner Guides
       - name: Working Groups
       - name: Reference Implementations
-      - name: REST API (Augur)
+      - name: REST API (CollectOSS)
       - name: Data Pipeline (GrimoireLab)
       - name: Dashboards (8Knot, Bitergia)
       - name: SaaS Adopter Services
@@ -486,7 +487,7 @@ common:
       - name: Risk Metrics
       - name: Value Metrics
       - name: Evolution Metrics
-      - name: Software (Augur and GrimoireLab)
+      - name: Software (CollectOSS and GrimoireLab)
       - name: Education
       - name: Practitioner Guides
   - name: Integrations

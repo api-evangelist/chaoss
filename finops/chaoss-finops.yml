@@ -119,14 +119,14 @@ meters:
       - endpoint
       - tier
 apis:
-  - name: CHAOSS Augur REST API
-    baseURL: https://ai.chaoss.io/api
+  - name: CHAOSS CollectOSS REST API
+    baseURL: ''
     tags:
-      - Augur
+      - CollectOSS
       - Community Health
       - Metrics
       - REST
-    serviceName: CHAOSS Augur REST API
+    serviceName: CHAOSS CollectOSS REST API
     serviceCategory: API
   - name: CHAOSS Metrics Catalog
     baseURL: ''

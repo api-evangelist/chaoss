@@ -64,7 +64,7 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-CHAOSS (Community Health Analytics in Open Source Software) is a Linux Foundation project that develops metrics, methodologies, software, and practitioner guides for measuring and improving open source community health and sustainability. It produces a metrics catalog organized into focus areas (Common, DEI, Risk, Value, Evolution) and metrics models, along with open source software (Augur, 8Knot, GrimoireLab) that ingests data from Git, GitHub, GitLab, mailing lists, and other community platforms to compute the metrics. CHAOSS-aligned SaaS services such as OSS Compass and Bitergia Analytics also expose the metrics for adopters who do not want to host the software themselves.
+CHAOSS (Community Health Analytics in Open Source Software) is a Linux Foundation project that develops metrics, methodologies, software, and practitioner guides for measuring and improving open source community health and sustainability. It produces a metrics catalog organized into focus areas (Common, DEI, Risk, Value, Evolution) and metrics models, along with open source software (CollectOSS, 8Knot, GrimoireLab) that ingests data from Git, GitHub, GitLab, mailing lists, and other community platforms to compute the metrics. CHAOSS-aligned SaaS services such as OSS Compass and Bitergia Analytics also expose the metrics for adopters who do not want to host the software themselves.
 
 **URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/chaoss/refs/heads/main/apis.yml)
 
@@ -86,26 +86,19 @@ CHAOSS (Community Health Analytics in Open Source Software) is a Linux Foundatio
 
 ## APIs
 
-### CHAOSS Augur REST API
+### CHAOSS CollectOSS REST API
 
-Augur is a CHAOSS reference implementation that collects data from GitHub, GitLab, mailing lists, and other community sources, and exposes a REST API for querying CHAOSS-aligned metrics on repositories, contributors, issues, pull requests, releases, and more. The API powers downstream analytics tools and dashboards including 8Knot.
-
-**Human URL:** [https://oss-augur.readthedocs.io/](https://oss-augur.readthedocs.io/)
-**Base URL:** `https://ai.chaoss.io/api`
-
-#### Tags
-
-- Augur, Community Health, Metrics, REST
+CollectOSS is the CHAOSS data-collection tool: it stores forge data in PostgreSQL and exposes a REST API of CHAOSS-aligned metrics, split in this profile into the Complexity, DEI Badging, Evolution, Experimental, Login, Risk, Utility, Value and Visualizations APIs. It is self-hosted; CHAOSS operates no hosted API. CollectOSS is the successor to Augur, which is no longer part of CHAOSS: github.com/chaoss/augur was archived with the notice "The Augur project is no longer part of CHAOSS. Use CollectOSS instead!"
 
 #### Properties
 
-- [Documentation](https://oss-augur.readthedocs.io/)
-- [GitHub Repository](https://github.com/chaoss/augur)
-- [API Reference](https://oss-augur.readthedocs.io/en/dev/rest-api/api.html)
+- [Documentation](https://docs.collectoss.org/en/latest/)
+- [API Reference](https://docs.collectoss.org/en/latest/rest-api/api.html)
+- [GitHub Repository](https://github.com/chaoss/CollectOSS)
 
 ### CHAOSS Metrics Catalog
 
-The CHAOSS Metrics catalog is a community-maintained, structured reference of community-health metrics organized into focus areas (Common, DEI, Risk, Value, Evolution) plus metrics models that compose them. The catalog is openly licensed and published on the CHAOSS website and the chaoss/metrics GitHub repository, and is consumed by Augur, GrimoireLab, OSS Compass, Bitergia Analytics, and other implementations.
+The CHAOSS Metrics catalog is a community-maintained, structured reference of community-health metrics organized into focus areas (Common, DEI, Risk, Value, Evolution) plus metrics models that compose them. The catalog is openly licensed and published on the CHAOSS website and the chaoss/metrics GitHub repository, and is consumed by CollectOSS, GrimoireLab, OSS Compass, Bitergia Analytics, and other implementations.
 
 **Human URL:** [https://chaoss.community/metrics/](https://chaoss.community/metrics/)
 
@@ -168,7 +161,7 @@ GrimoireLab is an open source platform for software development analytics. It pu
 
 ## Features
 
-Community Health Metrics, Metrics Models, DEI Metrics, Risk Metrics, Value Metrics, Evolution Metrics, Common Metrics, Open Source Software, Practitioner Guides, Working Groups, Reference Implementations, REST API (Augur), Data Pipeline (GrimoireLab), Dashboards (8Knot, Bitergia), SaaS Adopter Services
+Community Health Metrics, Metrics Models, DEI Metrics, Risk Metrics, Value Metrics, Evolution Metrics, Common Metrics, Open Source Software, Practitioner Guides, Working Groups, Reference Implementations, REST API (CollectOSS), Data Pipeline (GrimoireLab), Dashboards (8Knot, Bitergia), SaaS Adopter Services
 
 ## Use Cases
 
@@ -176,11 +169,11 @@ Open Source Project Health Assessment, Contributor Sustainability Analysis, DEI 
 
 ## Tools
 
-Augur, GrimoireLab, 8Knot, Bitergia Analytics, OSS Compass, Cauldron, Sortinghat, Perceval, GrimoireELK
+CollectOSS, GrimoireLab, 8Knot, Bitergia Analytics, OSS Compass, Cauldron, Sortinghat, Perceval, GrimoireELK
 
 ## Working Groups
 
-Common Metrics, DEI Metrics, Risk Metrics, Value Metrics, Evolution Metrics, Software (Augur and GrimoireLab), Education, Practitioner Guides
+Common Metrics, DEI Metrics, Risk Metrics, Value Metrics, Evolution Metrics, Software (CollectOSS and GrimoireLab), Education, Practitioner Guides
 
 ## Integrations
 
