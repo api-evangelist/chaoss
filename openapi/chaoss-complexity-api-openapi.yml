@@ -1,0 +1,216 @@
+openapi: 3.2.0
+info:
+  title: CollectOSS REST Complexity API
+  version: 0.60.0
+host: example.com
+basePath: /api/unstable/
+tags:
+- name: complexity
+paths:
+  /complexity/project_lines:
+    get:
+      description: Returns project line data for all repositories in a CollectOSS instance, using information from a git platform (GitHub, GitLab, etc.). Each record includes the total and average number of lines in the project repository.
+      operationId: Total Lines (repo)
+      parameters:
+      - in: query
+        name: repo_id
+        required: true
+        schema:
+          type: integer
+        type: integer
+        description: Repository Id
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              properties:
+                repo_id:
+                  description: 'Example: 25540'
+                  type: integer
+                repo_git:
+                  description: 'Example: https://github.com/chaoss/collectoss'
+                  type: string
+                repo_name:
+                  description: 'Example: collectoss'
+                  type: string
+                total_lines:
+                  description: 'Example: 274734'
+                  type: integer
+                average_lines:
+                  description: 'Example: 1000'
+                  type: integer
+            type: array
+      tags:
+      - complexity
+      summary: Total lines (repo)
+      x-summary-source: derived
+  /complexity/project_file_complexity:
+    get:
+      description: Returns project file complexity data for all repositories in an CollectOSS instance, using information from a git platform (GitHub, GitLab, etc.). Each record includes the total and average file complexity of the project repository.
+      operationId: File Complexity (repo)
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              properties:
+                repo_id:
+                  description: 'Example: 25540'
+                  type: integer
+                repo_git:
+                  description: 'Example: https://github.com/chaoss/collectoss'
+                  type: string
+                repo_name:
+                  description: 'Example: collectoss'
+                  type: string
+                sum_code_complexity:
+                  description: 'Example: 0'
+                  type: integer
+                average_code_complexity:
+                  description: 'Example: 0'
+                  type: integer
+            type: array
+      tags:
+      - complexity
+      summary: File complexity (repo)
+      x-summary-source: derived
+  /complexity/project_blank_lines:
+    get:
+      description: Returns project blank line data for all repositories in a CollectOSS instance, using information from a git platform (GitHub, GitLab, etc.). Each record includes the total and average number of blank lines in the project repository.
+      operationId: Total Blank Lines (repo)
+      parameters:
+      - in: query
+        name: repo_id
+        required: true
+        schema:
+          type: integer
+        type: integer
+        description: Repository Id
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              properties:
+                repo_id:
+                  description: 'Example: 25540'
+                  type: integer
+                repo_git:
+                  description: 'Example: https://github.com/chaoss/collectoss'
+                  type: string
+                repo_name:
+                  description: 'Example: collectoss'
+                  type: string
+                blank_lines:
+                  description: 'Example: 274734'
+                  type: integer
+                avg_blank_lines:
+                  description: 'Example: 923'
+                  type: integer
+            type: array
+      tags:
+      - complexity
+      summary: Total blank lines (repo)
+      x-summary-source: derived
+  /complexity/project_comment_lines:
+    get:
+      description: Returns project comment line data for all repositories in a CollectOSS instance, using information from a git platform (GitHub, GitLab, etc.). Each record includes the total and average number of comment lines in the project repository.
+      operationId: Total Comment Lines (repo)
+      parameters:
+      - in: query
+        name: repo_id
+        required: true
+        schema:
+          type: integer
+        type: integer
+        description: Repository Id
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              properties:
+                repo_id:
+                  description: 'Example: 25540'
+                  type: integer
+                repo_git:
+                  description: 'Example: https://github.com/chaoss/collectoss'
+                  type: string
+                repo_name:
+                  description: 'Example: collectoss'
+                  type: string
+                comment_lines:
+                  description: 'Example: 5066'
+                  type: integer
+                avg_comment_lines:
+                  description: 'Example: 345'
+                  type: integer
+            type: array
+      tags:
+      - complexity
+      summary: Total comment lines (repo)
+      x-summary-source: derived
+  /complexity/project_files:
+    get:
+      description: Returns project file data for all repositories in a CollectOSS instance, using information from a git platform (GitHub, GitLab, etc.). Each record includes the total number of files in the project repository.
+      operationId: Total Files (repo)
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              properties:
+                repo_id:
+                  description: 'Example: 25540'
+                  type: integer
+                repo_git:
+                  description: 'Example: https://github.com/chaoss/collectoss'
+                  type: string
+                repo_name:
+                  description: 'Example: collectoss'
+                  type: string
+                files:
+                  description: 'Example: 207'
+                  type: integer
+            type: array
+      tags:
+      - complexity
+      summary: Total files (repo)
+      x-summary-source: derived
+  /complexity/project_languages:
+    get:
+      description: Returns project language data for all repositories in a CollectOSS instance, using information from a git platform (GitHub, GitLab, etc.). Each record includes the lines and files of a language in a repository.
+      operationId: Project Languages (repo)
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              properties:
+                repo_id:
+                  description: 'Example: 25540'
+                  type: integer
+                repo_git:
+                  description: 'Example: https://github.com/chaoss/collectoss'
+                  type: string
+                repo_name:
+                  description: 'Example: collectoss'
+                  type: string
+                programming_language:
+                  description: 'Example: Python'
+                  type: string
+                code_lines:
+                  description: 'Example: 207'
+                  type: integer
+                files:
+                  description: 'Example: 12'
+                  type: integer
+            type: array
+      tags:
+      - complexity
+      summary: Project languages (repo)
+      x-summary-source: derived
+externalDocs:
+  description: CHAOSS Metric Definitions
+  url: https://chaoss.community/kb-metrics-and-metrics-models/

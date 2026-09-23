@@ -1,0 +1,166 @@
+openapi: 3.2.0
+info:
+  title: CollectOSS REST Login API
+  version: 0.60.0
+host: example.com
+basePath: /api/unstable/
+tags:
+- name: Login
+paths:
+  /user/session/generate:
+    post:
+      description: The final step in the CollectOSS Oauth authorization process. The Client Application uses this endpoint to exchange a temporary authorization code (generated in the previous authorization step) with a valid Bearer token.
+      operationId: Generate User Session Token
+      parameters:
+      - description: Client [API_Key]
+        in: header
+        required: true
+        name: Authorization
+        schema:
+          type: string
+        type: string
+      - description: Temporary authorization code
+        in: query
+        required: true
+        name: code
+        schema:
+          type: string
+        type: string
+      - description: Required to be "code"
+        in: query
+        required: true
+        name: grant_type
+        schema:
+          type: string
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                enum:
+                - Validated
+                - Invalid grant type
+                - Invalid authorization code
+                - Invalid user
+                example: Validated
+              username:
+                type: string
+                description: The login name of the User assocaited with this request. Only returned on success.
+              access_token:
+                type: string
+                description: The newly generated Bearer token for this User+Application authorization. Only returned on success.
+              refresh_token:
+                type: string
+                description: The refresh token associated with this transaction. Only returned on success.
+              token_type:
+                type: string
+                example: Bearer
+                enum:
+                - Bearer
+                description: Only returned on success.
+              expires:
+                type: integer
+                description: The number of seconds until the provided Bearer token expires.
+          headers:
+            Cache-Control:
+              description: Always set to "no-store"
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    enum:
+                    - no-store
+                    example: no-store
+        '400':
+          description: Missing Argument
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                enum:
+                - 'Missing argument: code'
+      tags:
+      - Login
+      summary: Generate user session token
+      x-summary-source: derived
+  /user/session/refresh:
+    post:
+      description: Exchange a valid refresh token for a new Bearer token and a new refresh token. The Bearer token returned from this endpoint may be the same as the current Bearer token. If the new Bearer token returned from this endpoint is not the same as the current Bearer token, then the current token is now invalid. The same is true for the existing refresh token.
+      operationId: Refresh User Session Token
+      parameters:
+      - description: Client [API_Key]
+        in: header
+        required: true
+        name: Authorization
+        schema:
+          type: string
+        type: string
+      - description: The refresh token generated in the previous authorization request.
+        in: query
+        required: true
+        name: refresh_token
+        schema:
+          type: string
+        type: string
+      - description: Required to be "refresh_token"
+        in: query
+        required: true
+        name: grant_type
+        schema:
+          type: string
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                enum:
+                - Validated
+                - Invalid grant type
+                - Invalid refresh token
+                - Invalid application
+                example: Validated
+                description: Status "Invalid application" is returned when the  issuing application (IE; that which the refresh token belongs to) is not the same as the requesting application (IE; that which is making the current request). Refresh tokens may only be used by the issuing application.
+              access_token:
+                type: string
+                description: The newly generated Bearer token for this User+Application authorization. Only returned on success.
+              refresh_token:
+                type: string
+                description: The refresh token associated with this transaction. Only returned on success.
+              expires:
+                type: integer
+                description: The number of seconds until the provided Bearer token expires.
+          headers:
+            Cache-Control:
+              description: Always set to "no-store"
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    enum:
+                    - no-store
+                    example: no-store
+        '400':
+          description: Missing Argument
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                enum:
+                - 'Missing argument: refresh_token'
+      tags:
+      - Login
+      summary: Refresh user session token
+      x-summary-source: derived
+externalDocs:
+  description: CHAOSS Metric Definitions
+  url: https://chaoss.community/kb-metrics-and-metrics-models/

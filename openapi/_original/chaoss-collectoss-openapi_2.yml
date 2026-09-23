@@ -1,3 +1,5 @@
+# x-archived-from: chaoss-collectoss-openapi.yml
+# x-archived-on: 2026-09-16
 #SPDX-License-Identifier: MIT
 basePath: /api/unstable/
 externalDocs:

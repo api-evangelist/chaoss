@@ -1,0 +1,344 @@
+openapi: 3.2.0
+info:
+  title: CollectOSS REST Utility API
+  version: 0.60.0
+host: example.com
+basePath: /api/unstable/
+tags:
+- name: Utility
+paths:
+  /repo-groups:
+    get:
+      description: Get all the downloaded repo groups.
+      operationId: Get All Repo Groups
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              properties:
+                data_collection_date:
+                  description: 'Example: 2019-06-05T13:36:25.000Z'
+                  type: string
+                data_source:
+                  description: 'Example: git'
+                  type: string
+                repo_group_id:
+                  description: 'Example: 20'
+                  type: integer
+                rg_description:
+                  description: 'Example: Rails Ecosystem.'
+                  type: string
+                rg_last_modified:
+                  description: 'Example: 2019-06-03T15:55:20.000Z'
+                  type: string
+                rg_name:
+                  description: 'Example: Rails'
+                  type: string
+                rg_recache:
+                  description: 'Example: 0'
+                  type: integer
+                rg_type:
+                  description: 'Example: GitHub Organization'
+                  type: string
+                rg_website:
+                  description: 'Example: '
+                  type: string
+                tool_source:
+                  description: 'Example: load'
+                  type: string
+                tool_version:
+                  description: 'Example: one'
+                  type: string
+            type: array
+      tags:
+      - Utility
+      summary: Get all repo groups
+      x-summary-source: derived
+  /repos:
+    get:
+      description: Get all the downloaded repos.
+      operationId: Get All Repos
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              properties:
+                base64_url:
+                  description: 'Example: Z2l0aHViLmNvbS9hcGFjaGUvaW5jdWJhdG9yLWFyZ3VzLmdpdA=='
+                  type: string
+                commits_all_time:
+                  description: 'Example: None'
+                  type: string
+                description:
+                  description: 'Example: None'
+                  type: string
+                issues_all_time:
+                  description: 'Example: None'
+                  type: string
+                repo_id:
+                  description: 'Example: 21996'
+                  type: integer
+                repo_name:
+                  description: 'Example: incubator-argus'
+                  type: string
+                repo_status:
+                  description: 'Example: Update'
+                  type: string
+                rg_name:
+                  description: 'Example: Apache'
+                  type: string
+                url:
+                  description: 'Example: github.com/apache/incubator-argus.git'
+                  type: string
+            type: array
+      tags:
+      - Utility
+      summary: Get all repos
+      x-summary-source: derived
+  /repos/:id:
+    get:
+      description: Get a downloaded repo by its ID in CollectOSS. The schema block below says it is an array, but it is not.
+      operationId: Get Repo By ID
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              properties:
+                base64_url:
+                  description: Base64 encode of the full URL. Example Z2l0aHViLmNvbS8zc2NhbGUvM3NjYWxlLW9wZXJhdG9yLW1ldGFkYXRh
+                  type: string
+                description:
+                  description: 'Repository description. Example: null'
+                  type: string
+                commits_all_time:
+                  description: 'How many commits have been made to this repository? Example: 24'
+                  type: integer
+                issues_all_time:
+                  description: 'How many issues have been raised on this repository? Example: 1'
+                  type: integer
+                pull_requests_all_time:
+                  description: 'How many pull requests have been made to this repository? Example: 7'
+                  type: integer
+                repo_id:
+                  description: 'Repository ID, should match provided URL parameter. Example: 25551'
+                  type: integer
+                repo_name:
+                  description: 'Name of the provided repository. Example: 3scale-operator-metadata'
+                  type: string
+                rg_name:
+                  description: 'Name of the repository group containing this repo. Example: 3scale'
+                  type: string
+                repo_group_id:
+                  description: 'ID of the repository group containing this repo. Example: 25431'
+                  type: integer
+                url:
+                  description: 'URL of this repository, sans leading protocol. Example: github.com/3scale/3scale-operator-metadata'
+                  type: string
+            type: array
+      tags:
+      - Utility
+      summary: Get repo by ID
+      x-summary-source: derived
+  /owner/:owner/repo/:repo:
+    get:
+      description: Get the repo_group_id and repo_id of a particular repo.
+      operationId: Get Repo by Owner and Repo Name
+      parameters:
+      - description: Repo Owner
+        in: path
+        name: owner
+        schema:
+          type: string
+        type: string
+      - description: Repo Name
+        in: path
+        name: repo
+        schema:
+          type: string
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              properties:
+                repo_group_id:
+                  description: 'Example: 23'
+                  type: integer
+                repo_id:
+                  description: 'Example: 21339'
+                  type: integer
+            type: array
+      tags:
+      - Utility
+      summary: Get repo by owner and repo name
+      x-summary-source: derived
+  /rg-name/:rg_name/repo-name/:repo_name:
+    get:
+      description: Get the repo_group_id and repo_id of a particular repo.
+      operationId: Get Repo by Repo Group Name and Repo Name
+      parameters:
+      - description: Repo Group Name
+        in: path
+        name: rg_name
+        schema:
+          type: string
+        type: string
+      - description: Repo Name
+        in: path
+        name: repo_name
+        schema:
+          type: string
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              properties:
+                repo_git:
+                  description: 'Example: https://github.com/rails/rails.git'
+                  type: string
+                repo_group_id:
+                  description: 'Example: 20'
+                  type: integer
+                repo_id:
+                  description: 'Example: 21000'
+                  type: integer
+            type: array
+      tags:
+      - Utility
+      summary: Get repo by repo group name and repo name
+      x-summary-source: derived
+  /rg-name/:rg_name:
+    get:
+      description: Get the repo_id of a particular repo group.
+      operationId: Get Repo by Repo Name
+      parameters:
+      - description: Repo Group Name
+        in: path
+        name: rg_name
+        schema:
+          type: string
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              properties:
+                repo_group_id:
+                  description: 'Example: 20'
+                  type: integer
+                rg_name:
+                  description: 'Example: Rails'
+                  type: string
+            type: array
+      tags:
+      - Utility
+      summary: Get repo by repo name
+      x-summary-source: derived
+  /repo-groups/:repo_group_id/repos:
+    get:
+      description: Get all the repos in a repo group.
+      operationId: Get Repos in Repo Group
+      parameters:
+      - description: Repository Group ID
+        in: path
+        name: repo_group_id
+        schema:
+          type: string
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              properties:
+                commits_all_time:
+                  description: 'Example: 6874'
+                  type: integer
+                description:
+                  description: 'Example: None'
+                  type: string
+                issues_all_time:
+                  description: 'Example: 81'
+                  type: integer
+                repo_id:
+                  description: 'Example: 21326'
+                  type: integer
+                repo_name:
+                  description: 'Example: graphql-js'
+                  type: string
+                repo_status:
+                  description: 'Example: Complete'
+                  type: string
+                url:
+                  description: 'Example: https://github.com/graphql/graphql-js.git'
+                  type: string
+            type: array
+      tags:
+      - Utility
+      summary: Get repos in repo group
+      x-summary-source: derived
+  /repo-groups/:repo_group_id/top-insights:
+    get:
+      description: Get all the downloaded repo groups.
+      operationId: Get Top Insights
+      parameters:
+      - description: Repository Group ID
+        in: path
+        name: repo_group_id
+        schema:
+          type: string
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              properties:
+                data_collection_date:
+                  description: 'Example: 2019-06-05T13:36:25.000Z'
+                  type: string
+                data_source:
+                  description: 'Example: git'
+                  type: string
+                repo_group_id:
+                  description: 'Example: 20'
+                  type: integer
+                rg_description:
+                  description: 'Example: Rails Ecosystem.'
+                  type: string
+                rg_last_modified:
+                  description: 'Example: 2019-06-03T15:55:20.000Z'
+                  type: string
+                rg_name:
+                  description: 'Example: Rails'
+                  type: string
+                rg_recache:
+                  description: 'Example: 0'
+                  type: integer
+                rg_type:
+                  description: 'Example: GitHub Organization'
+                  type: string
+                rg_website:
+                  description: 'Example: '
+                  type: string
+                tool_source:
+                  description: 'Example: load'
+                  type: string
+                tool_version:
+                  description: 'Example: one'
+                  type: string
+            type: array
+      tags:
+      - Utility
+      summary: Get top insights
+      x-summary-source: derived
+externalDocs:
+  description: CHAOSS Metric Definitions
+  url: https://chaoss.community/kb-metrics-and-metrics-models/

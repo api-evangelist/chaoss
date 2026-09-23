@@ -1,0 +1,260 @@
+openapi: 3.2.0
+info:
+  title: CollectOSS REST Value API
+  version: 0.60.0
+host: example.com
+basePath: /api/unstable/
+tags:
+- name: Value
+paths:
+  /repo-groups/:repo_group_id/watchers:
+    get:
+      description: A time series of watchers count.
+      operationId: Watchers (Repo Group)
+      parameters:
+      - description: Repository Group ID
+        in: path
+        name: repo_group_id
+        schema:
+          type: string
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              properties:
+                date:
+                  description: 'Example: 2019-07-03T23:26:42.000Z'
+                  type: string
+                repo_id:
+                  description: 'Example: 21036'
+                  type: integer
+                repo_name:
+                  description: 'Example: jquery-ujs'
+                  type: string
+                watchers:
+                  description: 'Example: 60'
+                  type: integer
+            type: array
+      tags:
+      - Value
+      summary: Watchers (repo group)
+      x-summary-source: derived
+  /repos/:repo_id/watchers:
+    get:
+      description: A time series of watchers count.
+      operationId: Watchers (Repo)
+      parameters:
+      - description: Repository ID.
+        in: path
+        name: repo_id
+        schema:
+          type: string
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              properties:
+                date:
+                  description: 'Example: 2019-07-03T23:22:26.000Z'
+                  type: string
+                repo_name:
+                  description: 'Example: airflow'
+                  type: string
+                watchers:
+                  description: 'Example: 649'
+                  type: integer
+            type: array
+      tags:
+      - Value
+      summary: Watchers (repo)
+      x-summary-source: derived
+  /repo-groups/:repo_group_id/watchers-count:
+    get:
+      description: Watchers count.
+      operationId: Watchers Count (Repo Group)
+      parameters:
+      - description: Repository Group ID
+        in: path
+        name: repo_group_id
+        schema:
+          type: string
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              properties:
+                repo_id:
+                  description: 'Example: 21039'
+                  type: integer
+                repo_name:
+                  description: 'Example: rails_xss'
+                  type: string
+                watchers:
+                  description: 'Example: 20'
+                  type: integer
+            type: array
+      tags:
+      - Value
+      summary: Watchers count (repo group)
+      x-summary-source: derived
+  /repos/:repo_id/watchers-count:
+    get:
+      description: Watchers count.
+      operationId: Watchers Count (Repo)
+      parameters:
+      - description: Repository ID.
+        in: path
+        name: repo_id
+        schema:
+          type: string
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              properties:
+                repo_name:
+                  description: 'Example: airflow'
+                  type: string
+                watchers:
+                  description: 'Example: 649'
+                  type: integer
+            type: array
+      tags:
+      - Value
+      summary: Watchers count (repo)
+      x-summary-source: derived
+  /repo-groups/:repo_group_id/stars:
+    get:
+      description: A time series of stars count.
+      operationId: Stars (Repo Group)
+      parameters:
+      - description: Repository Group ID
+        in: path
+        name: repo_group_id
+        schema:
+          type: string
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              properties:
+                date:
+                  description: 'Example: 2019-07-03T23:23:36.000Z'
+                  type: string
+                repo_id:
+                  description: 'Example: 21491'
+                  type: integer
+                repo_name:
+                  description: 'Example: commons-io'
+                  type: string
+                stars:
+                  description: 'Example: 600'
+                  type: integer
+            type: array
+      tags:
+      - Value
+      summary: Stars (repo group)
+      x-summary-source: derived
+  /repos/:repo_id/stars:
+    get:
+      description: A time series of stars count.
+      operationId: Stars (Repo)
+      parameters:
+      - description: Repository ID.
+        in: path
+        name: repo_id
+        schema:
+          type: string
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              properties:
+                date:
+                  description: 'Example: 2019-07-03T23:27:42.000Z'
+                  type: string
+                repo_name:
+                  description: 'Example: graphiql'
+                  type: string
+                stars:
+                  description: 'Example: 8652'
+                  type: integer
+            type: array
+      tags:
+      - Value
+      summary: Stars (repo)
+      x-summary-source: derived
+  /repo-groups/:repo_group_id/stars-count:
+    get:
+      description: Stars count.
+      operationId: Stars Count (Repo Group)
+      parameters:
+      - description: Repository Group ID
+        in: path
+        name: repo_group_id
+        schema:
+          type: string
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              properties:
+                repo_id:
+                  description: 'Example: 21364'
+                  type: integer
+                repo_name:
+                  description: 'Example: irs_process_scripts'
+                  type: string
+                stars:
+                  description: 'Example: 20'
+                  type: integer
+            type: array
+      tags:
+      - Value
+      summary: Stars count (repo group)
+      x-summary-source: derived
+  /repos/:repo_id/stars-count:
+    get:
+      description: Stars count.
+      operationId: Stars Count (Repo)
+      parameters:
+      - description: Repository ID.
+        in: path
+        name: repo_id
+        schema:
+          type: string
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              properties:
+                repo_name:
+                  description: 'Example: graphiql'
+                  type: string
+                stars:
+                  description: 'Example: 8653'
+                  type: integer
+            type: array
+      tags:
+      - Value
+      summary: Stars count (repo)
+      x-summary-source: derived
+externalDocs:
+  description: CHAOSS Metric Definitions
+  url: https://chaoss.community/kb-metrics-and-metrics-models/
