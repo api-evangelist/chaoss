@@ -129,7 +129,7 @@ GrimoireLab is an open source platform for software development analytics. It pu
 
 ### CHAOSS 8Knot Dashboard
 
-8Knot is an open source community analytics dashboard built on top of Augur that provides ready-made visualizations of CHAOSS metrics for stakeholders evaluating open source project health.
+8Knot is an open source community analytics dashboard built on the data collected by CollectOSS (formerly Augur) that provides ready-made visualizations of CHAOSS metrics for stakeholders evaluating open source project health.
 
 **Human URL:** [https://github.com/oss-aspen/8knot](https://github.com/oss-aspen/8knot)
 

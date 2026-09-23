@@ -113,7 +113,7 @@ apis:
 - aid: chaoss:8knot
   name: CHAOSS 8Knot Dashboard
   description: >-
-    8Knot is an open source community analytics dashboard built on top of Augur that provides ready-made
+    8Knot is an open source community analytics dashboard built on the data collected by CollectOSS (formerly Augur) that provides ready-made
     visualizations of CHAOSS metrics for stakeholders evaluating open source project health.
   humanURL: https://github.com/oss-aspen/8knot
   tags:
