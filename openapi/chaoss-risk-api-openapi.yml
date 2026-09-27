@@ -10,7 +10,7 @@ paths:
   /metadata/repo_info:
     get:
       description: Returns the metadata about all repositories in a CollectOSS instance, using information from a git platform (GitHub, GitLab, etc.). Each record includes the default branch, forks, stars, watchers, and committers. Also includes metadata about current repository issue and pull request status and counts.
-      operationId: Activity Metadata (Repo)
+      operationId: ActivityMetadata(Repo)
       responses:
         '200':
           description: OK
@@ -73,13 +73,15 @@ paths:
       - Risk
       summary: Activity metadata (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Activity Metadata (Repo)
   /metadata/contributions_count:
     get:
       description: 'Returns a list of repositories contributed to by all the contributors in a CollectOSS Instance: INCLUDING all repositories on a platform, *not* merely those repositories in the CollectOSS Instance. Numerical totals represent total CONTRIBUTIONS.'
       externalDocs:
         description: CHAOSS Metric Definition
         url: https://chaoss.community/kb/metric-contributors/
-      operationId: Contributions Count (Repo)
+      operationId: ContributionsCount(Repo)
       responses:
         '200':
           description: OK
@@ -97,13 +99,15 @@ paths:
       - Risk
       summary: Contributions count (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Contributions Count (Repo)
   /metadata/contributors_count:
     get:
       description: 'Returns a list of repositories contributed to by all the contributors in a CollectOSS Instance: INCLUDING all repositories on a platform, *not* merely those repositories in the CollectOSS Instance. Numerical totals represent total CONTRIBUTORS.'
       externalDocs:
         description: CHAOSS Metric Definition
         url: https://chaoss.community/kb/metric-contributors/
-      operationId: Contributors Count (Repo)
+      operationId: ContributorsCount(Repo)
       responses:
         '200':
           description: OK
@@ -121,13 +125,15 @@ paths:
       - Risk
       summary: Contributors count (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Contributors Count (Repo)
   /repo-groups/:repo_group_id/average-issue-resolution-time:
     get:
       description: The average issue resolution time.
       externalDocs:
         description: CHAOSS Metric Definition
         url: https://chaoss.community/kb/metric-issue-resolution-duration/
-      operationId: Average Issue Resolution Time (Repo Group)
+      operationId: AverageIssueResolutionTime(RepoGroup)
       parameters:
       - description: Repository Group ID
         in: path
@@ -155,13 +161,15 @@ paths:
       - Risk
       summary: Average issue resolution time (repo group)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Average Issue Resolution Time (Repo Group)
   /repos/:repo_id/average-issue-resolution-time:
     get:
       description: The average issue resolution time.
       externalDocs:
         description: CHAOSS Metric Definition
         url: https://chaoss.community/kb/metric-issue-resolution-duration/
-      operationId: Average Issue Resolution Time (Repo)
+      operationId: AverageIssueResolutionTime(Repo)
       parameters:
       - description: Repository ID.
         in: path
@@ -186,13 +194,15 @@ paths:
       - Risk
       summary: Average issue resolution time (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Average Issue Resolution Time (Repo)
   /repo-groups/:repo_group_id/cii-best-practices-badge:
     get:
       description: The CII Best Practices Badge level.
       externalDocs:
         description: CHAOSS Metric Definition
         url: https://chaoss.community/kb/metric-open-source-security-foundation-openssf-best-practices-badge/
-      operationId: CII Best Practices Badge (Repo Group)
+      operationId: CIIBestPracticesBadge(RepoGroup)
       parameters:
       - description: Repository Group ID
         in: path
@@ -220,13 +230,15 @@ paths:
       - Risk
       summary: CII best practices badge (repo group)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: CII Best Practices Badge (Repo Group)
   /repos/:repo_id/cii-best-practices-badge:
     get:
       description: The CII Best Practices Badge level.
       externalDocs:
         description: CHAOSS Metric Definition
         url: https://chaoss.community/kb/metric-open-source-security-foundation-openssf-best-practices-badge/
-      operationId: CII Best Practices Badge (Repo)
+      operationId: CIIBestPracticesBadge(Repo)
       parameters:
       - description: Repository ID.
         in: path
@@ -251,13 +263,15 @@ paths:
       - Risk
       summary: CII best practices badge (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: CII Best Practices Badge (Repo)
   /repo-groups/:repo_group_id/committers:
     get:
       description: Number of persons opening an issue for the first time.
       externalDocs:
         description: CHAOSS Metric Definition
         url: https://chaoss.community/kb/metric-committers/
-      operationId: Committers (Repo Group)
+      operationId: Committers(RepoGroup)
       parameters:
       - description: Repository Group ID
         in: path
@@ -303,13 +317,15 @@ paths:
       - Risk
       summary: Committers (repo group)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Committers (Repo Group)
   /repos/:repo_id/committers:
     get:
       description: Number of persons contributing with an accepted commit for the first time.
       externalDocs:
         description: CHAOSS Metric Definition
         url: https://chaoss.community/kb/metric-committers/
-      operationId: Committers (Repo)
+      operationId: Committers(Repo)
       parameters:
       - description: Repository ID.
         in: path
@@ -358,13 +374,15 @@ paths:
       - Risk
       summary: Committers (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Committers (Repo)
   /repo-groups/:repo_group_id/fork-count:
     get:
       description: A technical fork is a distributed version control copy of a project. The number of technical forks indicates the number of copies of a project on the same code development platform.
       externalDocs:
         description: CHAOSS Metric Definition
         url: https://chaoss.community/kb/metric-technical-fork/
-      operationId: Fork Count (Repo Group)
+      operationId: ForkCount(RepoGroup)
       parameters:
       - description: Repository Group ID
         in: path
@@ -392,13 +410,15 @@ paths:
       - Risk
       summary: Fork count (repo group)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Fork Count (Repo Group)
   /repos/:repo_id/fork-count:
     get:
       description: A technical fork is a distributed version control copy of a project. The number of technical forks indicates the number of copies of a project on the same code development platform.
       externalDocs:
         description: CHAOSS Metric Definition
         url: https://chaoss.community/kb/metric-technical-fork/
-      operationId: Fork Count (Repo)
+      operationId: ForkCount(Repo)
       parameters:
       - description: Repository ID.
         in: path
@@ -423,13 +443,15 @@ paths:
       - Risk
       summary: Fork count (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Fork Count (Repo)
   /repo-groups/:repo_group_id/forks:
     get:
       description: A time series of fork count.
       externalDocs:
         description: CHAOSS Metric Definition
         url: https://chaoss.community/kb/metric-technical-fork/
-      operationId: Forks (Repo Group)
+      operationId: Forks(RepoGroup)
       parameters:
       - description: Repository Group ID
         in: path
@@ -460,13 +482,15 @@ paths:
       - Risk
       summary: Forks (repo group)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Forks (Repo Group)
   /repos/:repo_id/forks:
     get:
       description: A time series of fork count.
       externalDocs:
         description: CHAOSS Metric Definition
         url: https://chaoss.community/kb/metric-technical-fork/
-      operationId: Forks (Repo)
+      operationId: Forks(Repo)
       parameters:
       - description: Repository ID.
         in: path
@@ -494,13 +518,15 @@ paths:
       - Risk
       summary: Forks (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Forks (Repo)
   /repo-groups/:repo_group_id/license-coverage:
     get:
       description: How much of the code base has declared licenses that scanners can recognize which may not be just OSI-approved. This includes both software and documentation source files and is represented as a percentage of total coverage.
       externalDocs:
         description: CHAOSS Metric Definition
         url: https://chaoss.community/kb/metric-license-coverage/
-      operationId: License Coverage (Repo Group)
+      operationId: LicenseCoverage(RepoGroup)
       parameters:
       - description: Repository Group ID
         in: path
@@ -531,13 +557,15 @@ paths:
       - Risk
       summary: License coverage (repo group)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: License Coverage (Repo Group)
   /repos/:repo_id/license-coverage:
     get:
       description: How much of the code base has declared licenses that scanners can recognize which may not be just OSI-approved. This includes both software and documentation source files and is represented as a percentage of total coverage.
       externalDocs:
         description: CHAOSS Metric Definition
         url: https://chaoss.community/kb/metric-license-coverage/
-      operationId: License Coverage (Repo)
+      operationId: LicenseCoverage(Repo)
       parameters:
       - description: Repository ID.
         in: path
@@ -568,13 +596,15 @@ paths:
       - Risk
       summary: License coverage (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: License Coverage (Repo)
   /repo-groups/:repo_group_id/license-declared:
     get:
       description: The total number and specific licenses declared in a software package. This can include both software and documentation source files. This metric is an enumeration of licenses, and the number of files with that particular license declaration.
       externalDocs:
         description: CHAOSS Metric Definition
         url: https://chaoss.community/kb/metric-licenses-declared/
-      operationId: License Declared (Repo Group)
+      operationId: LicenseDeclared(RepoGroup)
       parameters:
       - description: Repository Group ID
         in: path
@@ -602,13 +632,15 @@ paths:
       - Risk
       summary: License declared (repo group)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: License Declared (Repo Group)
   /repos/:repo_id/license-declared:
     get:
       description: The total number and specific licenses declared in a software package. This can include both software and documentation source files. This metric is an enumeration of licenses, and the number of files with that particular license declaration.
       externalDocs:
         description: CHAOSS Metric Definition
         url: https://chaoss.community/kb/metric-licenses-declared/
-      operationId: License Declared (Repo)
+      operationId: LicenseDeclared(Repo)
       parameters:
       - description: Repository ID.
         in: path
@@ -636,13 +668,15 @@ paths:
       - Risk
       summary: License declared (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: License Declared (Repo)
   /repo-groups/:repo_group_id/languages:
     get:
       description: The primary language of the repository.
       externalDocs:
         description: CHAOSS Metric Definition
         url: https://chaoss.community/kb/metric-programming-language-distribution/
-      operationId: Languages (Repo Group)
+      operationId: Languages(RepoGroup)
       parameters:
       - description: Repository Group ID
         in: path
@@ -667,13 +701,15 @@ paths:
       - Risk
       summary: Languages (repo group)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Languages (Repo Group)
   /repo-groups/:repo_id/languages:
     get:
       description: The primary language of the repository.
       externalDocs:
         description: CHAOSS Metric Definition
         url: https://chaoss.community/kb/metric-programming-language-distribution/
-      operationId: Languages (Repo)
+      operationId: Languages(Repo)
       parameters:
       - description: Repository ID.
         in: path
@@ -698,13 +734,15 @@ paths:
       - Risk
       summary: Languages (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Languages (Repo)
   /repo-groups/:repo_group_id/license-count:
     get:
       description: The declared software package license (fetched from CII Best Practices badging data).
       externalDocs:
         description: CHAOSS Metric Definition
         url: https://chaoss.community/kb/metric-osi-approved-licenses/
-      operationId: License Count (Repo Group)
+      operationId: LicenseCount(RepoGroup)
       parameters:
       - description: Repository Group ID
         in: path
@@ -732,13 +770,15 @@ paths:
       - Risk
       summary: License count (repo group)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: License Count (Repo Group)
   /repo-groups/:repo_id/license-count:
     get:
       description: The declared software package license (fetched from CII Best Practices badging data).
       externalDocs:
         description: CHAOSS Metric Definition
         url: https://chaoss.community/kb/metric-osi-approved-licenses/
-      operationId: License Count (Repo)
+      operationId: LicenseCount(Repo)
       parameters:
       - description: Repository ID.
         in: path
@@ -766,6 +806,8 @@ paths:
       - Risk
       summary: License count (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: License Count (Repo)
 externalDocs:
   description: CHAOSS Metric Definitions
   url: https://chaoss.community/kb-metrics-and-metrics-models/

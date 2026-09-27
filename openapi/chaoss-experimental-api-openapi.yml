@@ -10,7 +10,7 @@ paths:
   /repo-groups/:repo_group_id/aggregate-summary:
     get:
       description: Returns the current count of watchers, stars, and forks and the counts of all commits, committers, and pull requests merged between a given beginning and end date (default between now and 365 days ago).
-      operationId: Aggregate Summary (Repo Group)
+      operationId: AggregateSummary(RepoGroup)
       parameters:
       - description: Repository Group ID.
         in: path
@@ -59,10 +59,12 @@ paths:
       - Experimental
       summary: Aggregate summary (repo group)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Aggregate Summary (Repo Group)
   /repos/:repo_id/aggregate-summary:
     get:
       description: Returns the current count of watchers, stars, and forks and the counts of all commits, committers, and pull requests merged between a given beginning and end date (default between now and 365 days ago).
-      operationId: Aggregate Summary (Repo)
+      operationId: AggregateSummary(Repo)
       parameters:
       - description: Repository ID.
         in: path
@@ -111,10 +113,12 @@ paths:
       - Experimental
       summary: Aggregate summary (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Aggregate Summary (Repo)
   /repo-groups/:repo_group_id/annual-commit-count-ranked-by-new-repo-in-repo-group:
     get:
       description: Annual commit count ranked by new repos in a repo group.
-      operationId: Annual Commit Count Ranked by New Repo in Repo Group (Repo Group)
+      operationId: AnnualCommitCountRankedByNewRepoInRepoGroup(RepoGroup)
       parameters:
       - description: Repository Group ID.
         in: path
@@ -166,10 +170,12 @@ paths:
       - Experimental
       summary: Annual commit count ranked by new repo in repo group (repo group)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Annual Commit Count Ranked by New Repo in Repo Group (Repo Group)
   /repo-groups/:repo_id/annual-commit-count-ranked-by-new-repo-in-repo-group:
     get:
       description: Annual commit count ranked by new repos.
-      operationId: Annual Commit Count Ranked repos (Repo)
+      operationId: AnnualCommitCountRankedRepos(Repo)
       parameters:
       - description: Repository ID.
         in: path
@@ -221,10 +227,12 @@ paths:
       - Experimental
       summary: Annual commit count ranked repos (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Annual Commit Count Ranked repos (Repo)
   /repo-groups/:repo_group_id/annual-commit-count-ranked-by-repo-in-repo-group:
     get:
       description: Annual commit count ranked by repos in a repo group.
-      operationId: Annual Commit Count Ranked by Repo in Repo Group (Repo Group)
+      operationId: AnnualCommitCountRankedByRepoInRepoGroup(RepoGroup)
       parameters:
       - description: Repository Group ID.
         in: path
@@ -261,10 +269,12 @@ paths:
       - Experimental
       summary: Annual commit count ranked by repo in repo group (repo group)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Annual Commit Count Ranked by Repo in Repo Group (Repo Group)
   /repo-groups/:repo_id/annual-commit-count-ranked-by-repo-in-repo-group:
     get:
       description: This is a CollectOSS-specific metric. We are currently working to define these more formally.
-      operationId: Annual Commit Count Ranked by Repo in Repo Group (Repo)
+      operationId: AnnualCommitCountRankedByRepoInRepoGroup(Repo)
       parameters:
       - description: Repository ID.
         in: path
@@ -301,10 +311,12 @@ paths:
       - Experimental
       summary: Annual commit count ranked by repo in repo group (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Annual Commit Count Ranked by Repo in Repo Group (Repo)
   /repo-groups/:repo_group_id/annual-lines-of-code-count-ranked-by-new-repo-in-repo-group:
     get:
       description: This is a CollectOSS-specific metric. We are currently working to define these more formally.
-      operationId: Annual Lines of Code Ranked by New Repo in Repo Group (Repo Group)
+      operationId: AnnualLinesOfCodeRankedByNewRepoInRepoGroup(RepoGroup)
       parameters:
       - description: Repository Group ID.
         in: path
@@ -341,10 +353,12 @@ paths:
       - Experimental
       summary: Annual lines of code ranked by new repo in repo group (repo group)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Annual Lines of Code Ranked by New Repo in Repo Group (Repo Group)
   /repo-groups/:repo_id/annual-lines-of-code-count-ranked-by-new-repo-in-repo-group:
     get:
       description: This is a CollectOSS-specific metric. We are currently working to define these more formally.
-      operationId: Annual Lines of Code Ranked by New Repo in Repo Group (Repo)
+      operationId: AnnualLinesOfCodeRankedByNewRepoInRepoGroup(Repo)
       parameters:
       - description: Repository ID.
         in: path
@@ -381,10 +395,12 @@ paths:
       - Experimental
       summary: Annual lines of code ranked by new repo in repo group (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Annual Lines of Code Ranked by New Repo in Repo Group (Repo)
   /repo-groups/:repo_group_id/annual-lines-of-code-count-ranked-by-repo-in-repo-group:
     get:
       description: This is a CollectOSS-specific metric. We are currently working to define these more formally.
-      operationId: Annual Lines of Code Ranked by Repo in Repo Group (Repo Group)
+      operationId: AnnualLinesOfCodeRankedByRepoInRepoGroup(RepoGroup)
       parameters:
       - description: Repository Group ID.
         in: path
@@ -421,10 +437,12 @@ paths:
       - Experimental
       summary: Annual lines of code ranked by repo in repo group (repo group)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Annual Lines of Code Ranked by Repo in Repo Group (Repo Group)
   /repo-groups/:repo_id/annual-lines-of-code-count-ranked-by-repo-in-repo-group:
     get:
       description: This is a CollectOSS-specific metric. We are currently working to define these more formally.
-      operationId: Annual Lines of Code Ranked by Repo in Repo Group (Repo)
+      operationId: AnnualLinesOfCodeRankedByRepoInRepoGroup(Repo)
       parameters:
       - description: Repository ID.
         in: path
@@ -461,10 +479,12 @@ paths:
       - Experimental
       summary: Annual lines of code ranked by repo in repo group (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Annual Lines of Code Ranked by Repo in Repo Group (Repo)
   /repo-groups/:repo_group_id/issue-comments-mean:
     get:
       description: Mean(Average) of issue comments per day.
-      operationId: Issue Comments Mean (Repo Group)
+      operationId: IssueCommentsMean(RepoGroup)
       parameters:
       - description: Repository Group ID.
         in: path
@@ -498,10 +518,12 @@ paths:
       - Experimental
       summary: Issue comments mean (repo group)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Issue Comments Mean (Repo Group)
   /repos/:repo_id/issue-comments-mean:
     get:
       description: Mean(Average) of issue comments per day.
-      operationId: Issue Comments Mean (Repo)
+      operationId: IssueCommentsMean(Repo)
       parameters:
       - description: Repository ID.
         in: path
@@ -529,10 +551,12 @@ paths:
       - Experimental
       summary: Issue comments mean (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Issue Comments Mean (Repo)
   /repo-groups/:repo_group_id/issue-comments-mean-std:
     get:
       description: Mean(Average) and Standard Deviation of issue comments per day.
-      operationId: Issue Comments Mean Std (Repo Group)
+      operationId: IssueCommentsMeanStd(RepoGroup)
       parameters:
       - description: Repository Group ID.
         in: path
@@ -566,10 +590,12 @@ paths:
       - Experimental
       summary: Issue comments mean std (repo group)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Issue Comments Mean Std (Repo Group)
   /repos/:repo_id/issue-comments-mean-std:
     get:
       description: Mean(Average) and Standard Deviation of issue comments per day.
-      operationId: Issue Comments Mean Std (Repo)
+      operationId: IssueCommentsMeanStd(Repo)
       parameters:
       - description: Repository ID.
         in: path
@@ -600,10 +626,12 @@ paths:
       - Experimental
       summary: Issue comments mean std (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Issue Comments Mean Std (Repo)
   /repo-groups/:repo_group_id/pull-request-acceptance-rate:
     get:
       description: Timeseries of pull request acceptance rate (expressed as the ratio of pull requests merged on a date to the count of pull requests opened on a date)
-      operationId: Pull Request Acceptance Rate (Repo Group)
+      operationId: PullRequestAcceptanceRate(RepoGroup)
       parameters:
       - description: Repository Group ID.
         in: path
@@ -646,10 +674,12 @@ paths:
       - Experimental
       summary: Pull request acceptance rate (repo group)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Pull Request Acceptance Rate (Repo Group)
   /repos/:repo_id/pull-request-acceptance-rate:
     get:
       description: Timeseries of pull request acceptance rate (expressed as the ratio of pull requests merged on a date to the count of pull requests opened on a date)
-      operationId: Pull Request Acceptance Rate (Repo)
+      operationId: PullRequestAcceptanceRate(Repo)
       parameters:
       - description: Repository ID.
         in: path
@@ -686,10 +716,12 @@ paths:
       - Experimental
       summary: Pull request acceptance rate (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Pull Request Acceptance Rate (Repo)
   /repo-groups/:repo_group_id/pull-requests-new:
     get:
       description: Returns a time series of the number of new Pull Requests opened during a certain period for a specific repository group.
-      operationId: Pull Requests New (Repo Group)
+      operationId: PullRequestsNew(RepoGroup)
       parameters:
       - name: repo_group_id
         in: path
@@ -730,10 +762,12 @@ paths:
       - Experimental
       summary: Pull requests new (repo group)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Pull Requests New (Repo Group)
   /repo-groups/:repo_id/pull-requests-new:
     get:
       description: Returns a time series of the number of new Pull Requests opened during a certain period for a specific repository.
-      operationId: Pull Requests New (Repo)
+      operationId: PullRequestsNew(Repo)
       parameters:
       - name: repo_id
         in: path
@@ -774,10 +808,12 @@ paths:
       - Experimental
       summary: Pull requests new (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Pull Requests New (Repo)
   /repo-groups/:repo_group_id/pull-requests-closed-no-merge:
     get:
       description: Timeseries of pull request which were closed but not merged
-      operationId: Pull Request Closed but Not Merged (Repo Group)
+      operationId: PullRequestClosedButNotMerged(RepoGroup)
       parameters:
       - description: Repository Group ID.
         in: path
@@ -814,10 +850,12 @@ paths:
       - Experimental
       summary: Pull request closed but not merged (repo group)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Pull Request Closed but Not Merged (Repo Group)
   /repos/:repo_id/pull-requests-closed-no-merge:
     get:
       description: ''
-      operationId: Pull Request Closed but Not Merged (Repo)
+      operationId: PullRequestClosedButNotMerged(Repo)
       parameters:
       - description: Repository ID.
         in: path
@@ -854,10 +892,12 @@ paths:
       - Experimental
       summary: Pull request closed but not merged (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Pull Request Closed but Not Merged (Repo)
   /repo-groups/:repo_group_id/top-committers:
     get:
       description: Returns a list of contributors contributing N% of all commits.
-      operationId: Top Committers (Repo Group)
+      operationId: TopCommitters(RepoGroup)
       parameters:
       - description: Repository Group ID
         in: path
@@ -900,10 +940,12 @@ paths:
       - Experimental
       summary: Top committers (repo group)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Top Committers (Repo Group)
   /repos/:repo_id/top-committers:
     get:
       description: Returns a list of contributors contributing N% of all commits.
-      operationId: Top Committers (Repo)
+      operationId: TopCommitters(Repo)
       parameters:
       - description: Repository ID.
         in: path
@@ -946,10 +988,12 @@ paths:
       - Experimental
       summary: Top committers (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Top Committers (Repo)
   /repo-groups/:repo_group_id/abandoned-issues:
     get:
       description: List of abandoned issues (last updated >= 1 year ago)
-      operationId: Abandoned Issues (Repo Group)
+      operationId: AbandonedIssues(RepoGroup)
       parameters:
       - description: Repository Group ID
         in: path
@@ -977,10 +1021,12 @@ paths:
       - Experimental
       summary: Abandoned issues (repo group)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Abandoned Issues (Repo Group)
   /repo-groups/:repo_id/abandoned-issues:
     get:
       description: List of abandoned issues (last updated >= 1 year ago)
-      operationId: Abandoned Issues (Repo)
+      operationId: AbandonedIssues(Repo)
       parameters:
       - description: Repository ID.
         in: path
@@ -1008,13 +1054,15 @@ paths:
       - Experimental
       summary: Abandoned issues (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Abandoned Issues (Repo)
   /repo-groups/:repo_group_id/lines-changed-by-author:
     get:
       description: Code Changes Lines measures the sum of lines added and removed in all source code changes during a specified period by an author.
       externalDocs:
         description: CHAOSS Metric Definition
         url: https://chaoss.community/kb/metric-code-changes-lines/
-      operationId: Lines Changed by Author (Repo Group)
+      operationId: LinesChangedByAuthor(RepoGroup)
       parameters:
       - description: Repository Group ID
         in: path
@@ -1051,13 +1099,15 @@ paths:
       - Experimental
       summary: Lines changed by author (repo group)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Lines Changed by Author (Repo Group)
   /repo-groups/:repo_id/lines-changed-by-author:
     get:
       description: Code Changes Lines measures the sum of lines added and removed in all source code changes during a specified period by an author.
       externalDocs:
         description: CHAOSS Metric Definition
         url: https://chaoss.community/kb/metric-code-changes-lines/
-      operationId: Lines Changed by Author (Repo)
+      operationId: LinesChangedByAuthor(Repo)
       parameters:
       - description: Repository ID.
         in: path
@@ -1094,6 +1144,8 @@ paths:
       - Experimental
       summary: Lines changed by author (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Lines Changed by Author (Repo)
 externalDocs:
   description: CHAOSS Metric Definitions
   url: https://chaoss.community/kb-metrics-and-metrics-models/

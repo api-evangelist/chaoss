@@ -10,7 +10,7 @@ paths:
   /repo-groups/:repo_group_id/watchers:
     get:
       description: A time series of watchers count.
-      operationId: Watchers (Repo Group)
+      operationId: Watchers(RepoGroup)
       parameters:
       - description: Repository Group ID
         in: path
@@ -41,10 +41,12 @@ paths:
       - Value
       summary: Watchers (repo group)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Watchers (Repo Group)
   /repos/:repo_id/watchers:
     get:
       description: A time series of watchers count.
-      operationId: Watchers (Repo)
+      operationId: Watchers(Repo)
       parameters:
       - description: Repository ID.
         in: path
@@ -72,10 +74,12 @@ paths:
       - Value
       summary: Watchers (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Watchers (Repo)
   /repo-groups/:repo_group_id/watchers-count:
     get:
       description: Watchers count.
-      operationId: Watchers Count (Repo Group)
+      operationId: WatchersCount(RepoGroup)
       parameters:
       - description: Repository Group ID
         in: path
@@ -103,10 +107,12 @@ paths:
       - Value
       summary: Watchers count (repo group)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Watchers Count (Repo Group)
   /repos/:repo_id/watchers-count:
     get:
       description: Watchers count.
-      operationId: Watchers Count (Repo)
+      operationId: WatchersCount(Repo)
       parameters:
       - description: Repository ID.
         in: path
@@ -131,10 +137,12 @@ paths:
       - Value
       summary: Watchers count (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Watchers Count (Repo)
   /repo-groups/:repo_group_id/stars:
     get:
       description: A time series of stars count.
-      operationId: Stars (Repo Group)
+      operationId: Stars(RepoGroup)
       parameters:
       - description: Repository Group ID
         in: path
@@ -165,10 +173,12 @@ paths:
       - Value
       summary: Stars (repo group)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Stars (Repo Group)
   /repos/:repo_id/stars:
     get:
       description: A time series of stars count.
-      operationId: Stars (Repo)
+      operationId: Stars(Repo)
       parameters:
       - description: Repository ID.
         in: path
@@ -196,10 +206,12 @@ paths:
       - Value
       summary: Stars (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Stars (Repo)
   /repo-groups/:repo_group_id/stars-count:
     get:
       description: Stars count.
-      operationId: Stars Count (Repo Group)
+      operationId: StarsCount(RepoGroup)
       parameters:
       - description: Repository Group ID
         in: path
@@ -227,10 +239,12 @@ paths:
       - Value
       summary: Stars count (repo group)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Stars Count (Repo Group)
   /repos/:repo_id/stars-count:
     get:
       description: Stars count.
-      operationId: Stars Count (Repo)
+      operationId: StarsCount(Repo)
       parameters:
       - description: Repository ID.
         in: path
@@ -255,6 +269,8 @@ paths:
       - Value
       summary: Stars count (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Stars Count (Repo)
 externalDocs:
   description: CHAOSS Metric Definitions
   url: https://chaoss.community/kb-metrics-and-metrics-models/

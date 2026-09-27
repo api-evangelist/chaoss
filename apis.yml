@@ -18,15 +18,24 @@ description: >-
   2026 and was superseded by CollectOSS.
 type: Index
 deliveryModel:
-  model: unknown
+  model: saas
+  license_evidence:
+    not_product:
+    - chaoss/collectoss
+    - chaoss/community
+    - chaoss/grimoirelab
+    - chaoss/wg-metrics-models
+    - oss-aspen/8knot
   open_source: unknown
-  commercial: false
+  commercial: true
   callable_host: false
-  label: Delivery model not determined — needs a product licence on record
+  label: Hosted service · you call their endpoint
   confidence: low
   source:
-  - repository-unlicensed
-  generated: '2026-08-28'
+  - openapi
+  - pricing
+  - repository-not-product
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: freemium
@@ -51,7 +60,7 @@ tags:
   - Metrics
   - Observability
   - Open Source
-  - Risk
+  - Risk Management
   - Sustainability
 tags_raw:
   - Analytics
@@ -261,9 +270,10 @@ apis:
   humanURL: https://docs.collectoss.org/en/latest/
   baseURL: https://collectoss.example.com/api/unstable
   tags:
-  - Risk
+  - Risk Management
   tags_raw:
   - risk
+  - Risk
   properties:
   - type: OpenAPI
     url: openapi/chaoss-risk-api-openapi.yml

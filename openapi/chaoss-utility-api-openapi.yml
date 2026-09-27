@@ -10,7 +10,7 @@ paths:
   /repo-groups:
     get:
       description: Get all the downloaded repo groups.
-      operationId: Get All Repo Groups
+      operationId: GetAllRepoGroups
       responses:
         '200':
           description: OK
@@ -55,10 +55,12 @@ paths:
       - Utility
       summary: Get all repo groups
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get All Repo Groups
   /repos:
     get:
       description: Get all the downloaded repos.
-      operationId: Get All Repos
+      operationId: GetAllRepos
       responses:
         '200':
           description: OK
@@ -97,10 +99,12 @@ paths:
       - Utility
       summary: Get all repos
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get All Repos
   /repos/:id:
     get:
       description: Get a downloaded repo by its ID in CollectOSS. The schema block below says it is an array, but it is not.
-      operationId: Get Repo By ID
+      operationId: GetRepoByID
       responses:
         '200':
           description: OK
@@ -142,10 +146,12 @@ paths:
       - Utility
       summary: Get repo by ID
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Repo By ID
   /owner/:owner/repo/:repo:
     get:
       description: Get the repo_group_id and repo_id of a particular repo.
-      operationId: Get Repo by Owner and Repo Name
+      operationId: GetRepoByOwnerAndRepoName
       parameters:
       - description: Repo Owner
         in: path
@@ -176,10 +182,12 @@ paths:
       - Utility
       summary: Get repo by owner and repo name
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Repo by Owner and Repo Name
   /rg-name/:rg_name/repo-name/:repo_name:
     get:
       description: Get the repo_group_id and repo_id of a particular repo.
-      operationId: Get Repo by Repo Group Name and Repo Name
+      operationId: GetRepoByRepoGroupNameAndRepoName
       parameters:
       - description: Repo Group Name
         in: path
@@ -213,10 +221,12 @@ paths:
       - Utility
       summary: Get repo by repo group name and repo name
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Repo by Repo Group Name and Repo Name
   /rg-name/:rg_name:
     get:
       description: Get the repo_id of a particular repo group.
-      operationId: Get Repo by Repo Name
+      operationId: GetRepoByRepoName
       parameters:
       - description: Repo Group Name
         in: path
@@ -241,10 +251,12 @@ paths:
       - Utility
       summary: Get repo by repo name
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Repo by Repo Name
   /repo-groups/:repo_group_id/repos:
     get:
       description: Get all the repos in a repo group.
-      operationId: Get Repos in Repo Group
+      operationId: GetReposInRepoGroup
       parameters:
       - description: Repository Group ID
         in: path
@@ -284,10 +296,12 @@ paths:
       - Utility
       summary: Get repos in repo group
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Repos in Repo Group
   /repo-groups/:repo_group_id/top-insights:
     get:
       description: Get all the downloaded repo groups.
-      operationId: Get Top Insights
+      operationId: GetTopInsights
       parameters:
       - description: Repository Group ID
         in: path
@@ -339,6 +353,8 @@ paths:
       - Utility
       summary: Get top insights
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Top Insights
 externalDocs:
   description: CHAOSS Metric Definitions
   url: https://chaoss.community/kb-metrics-and-metrics-models/

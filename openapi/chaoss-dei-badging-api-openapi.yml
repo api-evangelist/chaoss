@@ -10,7 +10,7 @@ paths:
   /dei/repo/add:
     post:
       description: Add and start repo for DEI Badging
-      operationId: DEI Badging Tracking
+      operationId: DEIBadgingTracking
       parameters:
       - description: Client [API_Key]
         in: header
@@ -66,10 +66,12 @@ paths:
       - DEI Badging
       summary: DEI badging tracking
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: DEI Badging Tracking
   /dei/report:
     post:
       description: Request the report for the given badging project. On success, the report PDF will be returned in a Binary response. On failure, a JSON response with a status will be returned.
-      operationId: DEI Badging Report
+      operationId: DEIBadgingReport
       parameters:
       - description: Client [API_Key]
         in: header
@@ -108,6 +110,8 @@ paths:
       - DEI Badging
       summary: DEI badging report
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: DEI Badging Report
 externalDocs:
   description: CHAOSS Metric Definitions
   url: https://chaoss.community/kb-metrics-and-metrics-models/

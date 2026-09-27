@@ -10,7 +10,7 @@ paths:
   /user/session/generate:
     post:
       description: The final step in the CollectOSS Oauth authorization process. The Client Application uses this endpoint to exchange a temporary authorization code (generated in the previous authorization step) with a valid Bearer token.
-      operationId: Generate User Session Token
+      operationId: GenerateUserSessionToken
       parameters:
       - description: Client [API_Key]
         in: header
@@ -88,10 +88,12 @@ paths:
       - Login
       summary: Generate user session token
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Generate User Session Token
   /user/session/refresh:
     post:
       description: Exchange a valid refresh token for a new Bearer token and a new refresh token. The Bearer token returned from this endpoint may be the same as the current Bearer token. If the new Bearer token returned from this endpoint is not the same as the current Bearer token, then the current token is now invalid. The same is true for the existing refresh token.
-      operationId: Refresh User Session Token
+      operationId: RefreshUserSessionToken
       parameters:
       - description: Client [API_Key]
         in: header
@@ -161,6 +163,8 @@ paths:
       - Login
       summary: Refresh user session token
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Refresh User Session Token
 externalDocs:
   description: CHAOSS Metric Definitions
   url: https://chaoss.community/kb-metrics-and-metrics-models/

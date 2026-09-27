@@ -10,7 +10,7 @@ paths:
   /complexity/project_lines:
     get:
       description: Returns project line data for all repositories in a CollectOSS instance, using information from a git platform (GitHub, GitLab, etc.). Each record includes the total and average number of lines in the project repository.
-      operationId: Total Lines (repo)
+      operationId: TotalLines(repo)
       parameters:
       - in: query
         name: repo_id
@@ -45,10 +45,12 @@ paths:
       - complexity
       summary: Total lines (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Total Lines (repo)
   /complexity/project_file_complexity:
     get:
       description: Returns project file complexity data for all repositories in an CollectOSS instance, using information from a git platform (GitHub, GitLab, etc.). Each record includes the total and average file complexity of the project repository.
-      operationId: File Complexity (repo)
+      operationId: FileComplexity(repo)
       responses:
         '200':
           description: OK
@@ -75,10 +77,12 @@ paths:
       - complexity
       summary: File complexity (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: File Complexity (repo)
   /complexity/project_blank_lines:
     get:
       description: Returns project blank line data for all repositories in a CollectOSS instance, using information from a git platform (GitHub, GitLab, etc.). Each record includes the total and average number of blank lines in the project repository.
-      operationId: Total Blank Lines (repo)
+      operationId: TotalBlankLines(repo)
       parameters:
       - in: query
         name: repo_id
@@ -113,10 +117,12 @@ paths:
       - complexity
       summary: Total blank lines (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Total Blank Lines (repo)
   /complexity/project_comment_lines:
     get:
       description: Returns project comment line data for all repositories in a CollectOSS instance, using information from a git platform (GitHub, GitLab, etc.). Each record includes the total and average number of comment lines in the project repository.
-      operationId: Total Comment Lines (repo)
+      operationId: TotalCommentLines(repo)
       parameters:
       - in: query
         name: repo_id
@@ -151,10 +157,12 @@ paths:
       - complexity
       summary: Total comment lines (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Total Comment Lines (repo)
   /complexity/project_files:
     get:
       description: Returns project file data for all repositories in a CollectOSS instance, using information from a git platform (GitHub, GitLab, etc.). Each record includes the total number of files in the project repository.
-      operationId: Total Files (repo)
+      operationId: TotalFiles(repo)
       responses:
         '200':
           description: OK
@@ -178,10 +186,12 @@ paths:
       - complexity
       summary: Total files (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Total Files (repo)
   /complexity/project_languages:
     get:
       description: Returns project language data for all repositories in a CollectOSS instance, using information from a git platform (GitHub, GitLab, etc.). Each record includes the lines and files of a language in a repository.
-      operationId: Project Languages (repo)
+      operationId: ProjectLanguages(repo)
       responses:
         '200':
           description: OK
@@ -211,6 +221,8 @@ paths:
       - complexity
       summary: Project languages (repo)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Project Languages (repo)
 externalDocs:
   description: CHAOSS Metric Definitions
   url: https://chaoss.community/kb-metrics-and-metrics-models/

@@ -10,7 +10,7 @@ paths:
   /contributor_reports/new_contributors_bar/:
     get:
       description: Get bar chart of new contributor counts.
-      operationId: New Contributor Counts Bar Chart
+      operationId: NewContributorCountsBarChart
       parameters:
       - in: query
         name: repo_id
@@ -70,10 +70,12 @@ paths:
       - Visualizations
       summary: New contributor counts bar chart
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: New Contributor Counts Bar Chart
   /contributor_reports/new_contributors_stacked_bar/:
     get:
       description: Get stacked bar chart of new contributor counts, which shows the action of the contributor.
-      operationId: New Contributor Counts Stacked Bar Chart (shows actions)
+      operationId: NewContributorCountsStackedBarChart(showsActions)
       parameters:
       - in: query
         name: repo_id
@@ -133,10 +135,12 @@ paths:
       - Visualizations
       summary: New contributor counts stacked bar chart (shows actions)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: New Contributor Counts Stacked Bar Chart (shows actions)
   /contributor_reports/returning_contributors_pie_chart/:
     get:
       description: Get pie chart of the returning contributor counts.
-      operationId: Returning Contributor Counts Pie Chart
+      operationId: ReturningContributorCountsPieChart
       parameters:
       - in: query
         name: repo_id
@@ -189,10 +193,12 @@ paths:
       - Visualizations
       summary: Returning contributor counts pie chart
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Returning Contributor Counts Pie Chart
   /contributor_reports/returning_contributors_stacked_bar/:
     get:
       description: Get returning contributors stacked bar chart.
-      operationId: New Contributor Counts Stacked Bar Chart (shows actions)
+      operationId: getContributorReportsReturningContributorsStackedBar
       parameters:
       - in: query
         name: repo_id
@@ -252,10 +258,12 @@ paths:
       - Visualizations
       summary: New contributor counts stacked bar chart (shows actions)
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: New Contributor Counts Stacked Bar Chart (shows actions)
   /pull_request_reports/average_commits_per_PR/:
     get:
       description: Get vertical bar chart of average commits per pull request.
-      operationId: Average Commit Counts Per Year for All Pull Requests
+      operationId: AverageCommitCountsPerYearForAllPullRequests
       parameters:
       - in: query
         name: repo_id
@@ -294,10 +302,12 @@ paths:
       - Visualizations
       summary: Average commit counts per year for all pull requests
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Average Commit Counts Per Year for All Pull Requests
   /pull_request_reports/average_comments_per_PR/:
     get:
       description: Get horizontal stacked bar chart of the average comments for closed pull requests.
-      operationId: Average Comments per Closed Pull Request
+      operationId: AverageCommentsPerClosedPullRequest
       parameters:
       - in: query
         name: repo_id
@@ -336,10 +346,12 @@ paths:
       - Visualizations
       summary: Average comments per closed pull request
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Average Comments per Closed Pull Request
   /pull_request_reports/PR_counts_by_merged_status/:
     get:
       description: Get vertical stacked bar chart of the number of pull requests by merged status.
-      operationId: Count of All Closed Pull Requests by Merged Status
+      operationId: CountOfAllClosedPullRequestsByMergedStatus
       parameters:
       - in: query
         name: repo_id
@@ -378,10 +390,12 @@ paths:
       - Visualizations
       summary: Count of all closed pull requests by merged status
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Count of All Closed Pull Requests by Merged Status
   /pull_request_reports/mean_response_times_for_PR/:
     get:
       description: Get grouped horizontal bar chart of average response times for closed pull requests.
-      operationId: Mean Response Times for Closed Pull Requests
+      operationId: MeanResponseTimesForClosedPullRequests
       parameters:
       - in: query
         name: repo_id
@@ -420,10 +434,12 @@ paths:
       - Visualizations
       summary: Mean response times for closed pull requests
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Mean Response Times for Closed Pull Requests
   /pull_request_reports/mean_days_between_PR_comments/:
     get:
       description: Get line graph of the average days between comments for closed pull requests.
-      operationId: Average Days Between Comment for Pull Requests
+      operationId: AverageDaysBetweenCommentForPullRequests
       parameters:
       - in: query
         name: repo_id
@@ -462,10 +478,12 @@ paths:
       - Visualizations
       summary: Average days between comment for pull requests
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Average Days Between Comment for Pull Requests
   /pull_request_reports/PR_time_to_first_response/:
     get:
       description: Get scatter plot of the days to first response for closed pull requests based on merged status.
-      operationId: Days to First Response for Closed Pull Requests Based on Merged Status
+      operationId: DaysToFirstResponseForClosedPullRequestsBasedOnMergedStatus
       parameters:
       - in: query
         name: repo_id
@@ -511,10 +529,12 @@ paths:
       - Visualizations
       summary: Days to first response for closed pull requests based on merged status
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Days to First Response for Closed Pull Requests Based on Merged Status
   /pull_request_reports/average_PR_events_for_closed_PRs/:
     get:
       description: Get heat map of average pull request event counts for closed pull requests.
-      operationId: Average Pull Request Event Types for Closed Pull Requests
+      operationId: AveragePullRequestEventTypesForClosedPullRequests
       parameters:
       - in: query
         name: repo_id
@@ -553,10 +573,12 @@ paths:
       - Visualizations
       summary: Average pull request event types for closed pull requests
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Average Pull Request Event Types for Closed Pull Requests
   /pull_request_reports/Average_PR_duration/:
     get:
       description: Get heat map of the average duration of pull requests per month.
-      operationId: Mean Duration of Closed Pull Requests
+      operationId: MeanDurationOfClosedPullRequests
       parameters:
       - in: query
         name: repo_id
@@ -602,6 +624,8 @@ paths:
       - Visualizations
       summary: Mean duration of closed pull requests
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Mean Duration of Closed Pull Requests
 externalDocs:
   description: CHAOSS Metric Definitions
   url: https://chaoss.community/kb-metrics-and-metrics-models/
