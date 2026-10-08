@@ -368,6 +368,8 @@ apis:
   - type: X-MCPServerCandidate
     url: mcp/chaoss-mcp.yml
 common:
+  - type: FinOps
+    url: finops/chaoss-finops.yml
   - type: Overlay
     url: overlays/chaoss-collectoss-overlay.yaml
   - type: AgentSkill
