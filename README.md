@@ -1,4 +1,4 @@
-# CHAOSS (chaoss)
+# CHAOSS
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,123 +64,138 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-CHAOSS (Community Health Analytics in Open Source Software) is a Linux Foundation project that develops metrics, methodologies, software, and practitioner guides for measuring and improving open source community health and sustainability. It produces a metrics catalog organized into focus areas (Common, DEI, Risk, Value, Evolution) and metrics models, along with open source software (CollectOSS, 8Knot, GrimoireLab) that ingests data from Git, GitHub, GitLab, mailing lists, and other community platforms to compute the metrics. CHAOSS-aligned SaaS services such as OSS Compass and Bitergia Analytics also expose the metrics for adopters who do not want to host the software themselves.
+CHAOSS (Community Health Analytics in Open Source Software) is a Linux Foundation project that develops metrics, methodologies, software, and practitioner guides for measuring and improving open source community health and sustainability. It maintains a metrics catalog organized into focus areas (Common, DEI, Risk, Value, Evolution) plus metrics models, and ships the open source software that computes them: CollectOSS, a Python data-collection tool that stores forge data in PostgreSQL and exposes a 137-operation REST API of CHAOSS-aligned metrics, and GrimoireLab, a Python toolchain and OpenSearch dashboard that ingests 30+ data sources. Both are self-hosted — CHAOSS operates no hosted API and sells nothing. CHAOSS also runs the DEI Project Badging program and publishes practitioner guides for OSPOs, maintainers and funders. Augur, formerly the CHAOSS reference implementation, left the project in March 2026 and was superseded by CollectOSS.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/chaoss/refs/heads/main/apis.yml)
+**Areas:** Analytics · Community Health · DEI · Linux Foundation · Metrics · Observability · Open Source · Risk Management · Sustainability
 
-## Scope
+## CHAOSS on APIs.io
 
-- **Type:** Index
-- **Position:** Producer
-- **Access:** Open Source
-- **x-type:** opensource
+Everything profiled for CHAOSS is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/chaoss/](https://apis.io/providers/chaoss/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (12)
 
-- Analytics, Community Health, DEI, Linux Foundation, Metrics, Observability, Open Source, Risk, Sustainability
+- [CHAOSS Metrics Catalog](https://apis.io/apis/chaoss/metrics-catalog/) — The CHAOSS Metrics catalog is a community-maintained, structured reference of community-health metrics organized into focus areas (Common, DEI, Risk, Value,…
+- [CHAOSS GrimoireLab](https://apis.io/apis/chaoss/grimoirelab/) — GrimoireLab is an open source platform for software development analytics. It pulls data from 30+ data sources (Git, GitHub, GitLab, mailing lists, IRC,…
+- [CHAOSS 8Knot Dashboard](https://apis.io/apis/chaoss/8knot/) — 8Knot is an open source community analytics dashboard built on the data collected by CollectOSS (formerly Augur) that provides ready-made visualizations of…
+- [CHAOSS Complexity API](https://apis.io/apis/chaoss/chaoss-complexity-api/) — The complexity API from CHAOSS — 6 operation(s) for complexity.
+- [CHAOSS DEI Badging API](https://apis.io/apis/chaoss/chaoss-dei-badging-api/) — The DEI Badging API from CHAOSS — 2 operation(s) for dei badging.
+- [CHAOSS Evolution API](https://apis.io/apis/chaoss/chaoss-evolution-api/) — The evolution API from CHAOSS — 52 operation(s) for evolution.
+- [CHAOSS Experimental API](https://apis.io/apis/chaoss/chaoss-experimental-api/) — The experimental API from CHAOSS — 26 operation(s) for experimental.
+- [CHAOSS Login API](https://apis.io/apis/chaoss/chaoss-login-api/) — The login API from CHAOSS — 2 operation(s) for login.
+- [CHAOSS Risk API](https://apis.io/apis/chaoss/chaoss-risk-api/) — The risk API from CHAOSS — 21 operation(s) for risk.
+- [CHAOSS Utility API](https://apis.io/apis/chaoss/chaoss-utility-api/) — The utility API from CHAOSS — 8 operation(s) for utility.
+- [CHAOSS Value API](https://apis.io/apis/chaoss/chaoss-value-api/) — The value API from CHAOSS — 8 operation(s) for value.
+- [CHAOSS Visualizations API](https://apis.io/apis/chaoss/chaoss-visualizations-api/) — The visualizations API from CHAOSS — 12 operation(s) for visualizations.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-03-16
-- **Modified:** 2026-04-23
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### MCP servers (1)
 
-### CHAOSS CollectOSS REST API
+Model Context Protocol servers that expose the API to agents.
 
-CollectOSS is the CHAOSS data-collection tool: it stores forge data in PostgreSQL and exposes a REST API of CHAOSS-aligned metrics, split in this profile into the Complexity, DEI Badging, Evolution, Experimental, Login, Risk, Utility, Value and Visualizations APIs. It is self-hosted; CHAOSS operates no hosted API. CollectOSS is the successor to Augur, which is no longer part of CHAOSS: github.com/chaoss/augur was archived with the notice "The Augur project is no longer part of CHAOSS. Use CollectOSS instead!"
+- [chaoss-mcp.yml](https://apis.io/servers/chaoss/chaoss-mcp-yml/)
 
-#### Properties
+#### Overlays (1)
 
-- [Documentation](https://docs.collectoss.org/en/latest/)
-- [API Reference](https://docs.collectoss.org/en/latest/rest-api/api.html)
-- [GitHub Repository](https://github.com/chaoss/CollectOSS)
+OpenAPI overlays, including conversational phrasing for each operation.
 
-### CHAOSS Metrics Catalog
+- [Chaoss Collectoss Overlay](https://apis.io/overlays/chaoss/chaoss-collectoss-overlay/)
 
-The CHAOSS Metrics catalog is a community-maintained, structured reference of community-health metrics organized into focus areas (Common, DEI, Risk, Value, Evolution) plus metrics models that compose them. The catalog is openly licensed and published on the CHAOSS website and the chaoss/metrics GitHub repository, and is consumed by CollectOSS, GrimoireLab, OSS Compass, Bitergia Analytics, and other implementations.
+#### Security (3)
 
-**Human URL:** [https://chaoss.community/metrics/](https://chaoss.community/metrics/)
+Authentication, trust centre, and vulnerability disclosure.
 
-#### Tags
+- [Chaoss Authentication](https://apis.io/security/chaoss/chaoss-authentication/)
+- [Chaoss Domain Security](https://apis.io/security/chaoss/chaoss-domain-security/)
+- [Chaoss Vulnerability Disclosure](https://apis.io/security/chaoss/chaoss-vulnerability-disclosure/)
 
-- Catalog, Documentation, Metrics, Models
+#### OAuth scopes (1)
 
-#### Properties
+The permissions the API asks for.
 
-- [Documentation](https://chaoss.community/kbtopic/all-metrics/)
-- [Metrics Models GitHub](https://github.com/chaoss/wg-metrics-models)
-- [Community Repository](https://github.com/chaoss/community)
+- [Chaoss Scopes](https://apis.io/scopes/chaoss/chaoss-scopes/)
 
-### CHAOSS GrimoireLab
+#### Plans and pricing (1)
 
-GrimoireLab is an open source platform for software development analytics. It pulls data from 30+ data sources (Git, GitHub, GitLab, mailing lists, IRC, Slack, Jira, Bugzilla, etc.) and provides a Python toolkit (Perceval, Sortinghat, GrimoireELK) plus a Kibana-based dashboard, exposing CHAOSS metrics for community health analysis.
+Published plans, tiers and prices.
 
-**Human URL:** [https://chaoss.github.io/grimoirelab/](https://chaoss.github.io/grimoirelab/)
+- [Chaoss Plans Pricing](https://apis.io/plans/chaoss/chaoss-plans-pricing/)
 
-#### Tags
+#### Rate limits (1)
 
-- Analytics, Data Pipeline, GrimoireLab, Kibana, Metrics
+Published request limits.
 
-#### Properties
+- [Chaoss Rate Limits](https://apis.io/rate-limits/chaoss/chaoss-rate-limits/)
 
-- [Documentation](https://chaoss.github.io/grimoirelab/)
-- [GitHub Repository](https://github.com/chaoss/grimoirelab)
+#### FinOps (1)
 
-### CHAOSS 8Knot Dashboard
+What the API costs to run, by operation.
 
-8Knot is an open source community analytics dashboard built on the data collected by CollectOSS (formerly Augur) that provides ready-made visualizations of CHAOSS metrics for stakeholders evaluating open source project health.
+- [Chaoss Finops](https://apis.io/finops/chaoss/chaoss-finops/)
 
-**Human URL:** [https://github.com/oss-aspen/8knot](https://github.com/oss-aspen/8knot)
+## Where to find this API
 
-#### Tags
-
-- Dashboard, Visualization
-
-#### Properties
-
-- [Documentation](https://github.com/oss-aspen/8knot)
-- [GitHub Repository](https://github.com/oss-aspen/8knot)
-
-## Common Properties
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://chaoss.community/)
 - [Documentation](https://chaoss.community/kbtopic/all-metrics/)
+- [Getting started](https://www.chaoss.community/kb-getting-started/)
+- [Support](https://github.com/chaoss/community/discussions)
+- [Blog](https://www.chaoss.community/blog/)
+- [Privacy policy](https://www.chaoss.community/data-policies/)
 - [GitHub](https://github.com/chaoss)
-- [Working Groups](https://chaoss.community/working-groups/)
-- [Events](https://chaoss.community/events/)
-- [Blog](https://chaoss.community/news-blog/)
-- [Practitioner Guides](https://chaoss.community/practitioner-guides/)
-- [Parent Organization (Linux Foundation)](https://www.linuxfoundation.org/)
-- [Getting Started](https://chaoss.community/get-started/)
-- [Community](https://chaoss.community/participate/)
-- [Slack](https://chaoss.community/connect/)
-- [YouTube](https://www.youtube.com/c/CHAOSScommunity)
-- [LinkedIn](https://www.linkedin.com/company/chaoss-community/)
-- [X](https://x.com/chaossproj)
 
-## Features
+## API Evangelist rating
 
-Community Health Metrics, Metrics Models, DEI Metrics, Risk Metrics, Value Metrics, Evolution Metrics, Common Metrics, Open Source Software, Practitioner Guides, Working Groups, Reference Implementations, REST API (CollectOSS), Data Pipeline (GrimoireLab), Dashboards (8Knot, Bitergia), SaaS Adopter Services
+**Kin Score 37.8** — thin · rubric 0.24.0 · scored 2026-10-17
 
-## Use Cases
+| Facet | Score |
+|---|---|
+| Discoverability | 64.3 |
+| Contract quality | 38.3 |
+| Contract governance | 4.5 |
+| Operational transparency | 28.9 |
+| Developer ergonomics | 63.7 |
+| Access clarity | 10.5 |
 
-Open Source Project Health Assessment, Contributor Sustainability Analysis, DEI in Open Source Communities, Open Source Risk and Security Assessment, Open Source Investment ROI, Funding Impact Measurement, Community Onboarding Improvement, Foundation-Level Reporting, OSPO Health Reporting, Maintainer Burnout Detection
+**Agent readiness 22.1** — agent-aware
 
-## Tools
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
 
-CollectOSS, GrimoireLab, 8Knot, Bitergia Analytics, OSS Compass, Cauldron, Sortinghat, Perceval, GrimoireELK
+**Regulatory alignment 34.4** — Health
 
-## Working Groups
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/chaoss/](https://apis.io/providers/chaoss/).
 
-Common Metrics, DEI Metrics, Risk Metrics, Value Metrics, Evolution Metrics, Software (CollectOSS and GrimoireLab), Education, Practitioner Guides
+## How this profile is made
 
-## Integrations
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
 
-GitHub, GitLab, Bitbucket, Git, Mailing Lists, Jira, Bugzilla, Discourse, Slack, IRC, Stack Exchange, Meetup, Linux Foundation, CNCF, Apache Software Foundation, OpenSSF
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for CHAOSS: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
 
-## Maintainers
+## Open an issue
 
-**FN:** Kin Lane
-
-**Email:** info@apievangelist.com
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/chaoss/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
